@@ -15,13 +15,16 @@ var eventArry=[];
 var oArgs = {
 
   app_key: "3sqmmtWF3swnsGxH",
-  where: "Austin",    
+  where: "Austin",  
+  category: "concerts",
+  when:"this week",
   page_size: 5,
   sort_order: "popularity"
 
 };
 
 function pushEventsToArray(data){
+  console.log(data);
    data.events.event.forEach(function(ele){
       eventArry.push({eventName : ele.title,
                       eventDate: ele.start_time,

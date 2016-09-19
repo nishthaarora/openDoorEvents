@@ -116,7 +116,7 @@ function geocodeEvents(data){
 
    eventArr.forEach(function(ele){
             console.log(ele);
-          data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+            data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
                 if (status === 'OK') {
                     data.map.setCenter(results[0].geometry.location);
                     var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
