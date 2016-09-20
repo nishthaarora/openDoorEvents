@@ -50,11 +50,13 @@
 
             eventArr.forEach(function(ele){
         
+<<<<<<< HEAD
         geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
             var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
                               
+<<<<<<< HEAD
                     var infowindow = new google.maps.InfoWindow({
                       content: contentString
                     });
@@ -63,6 +65,23 @@
                       position: results[0].geometry.location
                     });
 
+=======
+=======
+            geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
+>>>>>>> 0d32b581b37f58b08ebb18f940739b0362d926aa
+
+                    var infowindow = new google.maps.InfoWindow({
+                      content: contentString
+                    });
+                    var marker = new google.maps.Marker({
+                      map: resultsMap,
+                      position: results[0].geometry.location
+                    });
+
+>>>>>>> b479917... Updated javascript and html
                     marker.addListener('click', function() {
                       infowindow.open(map, marker);
                     });

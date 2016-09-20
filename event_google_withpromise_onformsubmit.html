@@ -25,9 +25,18 @@
       city:<input id="city"  type="text" name="" ><br>
       category:<input id="category"  type="text" name=""><br>
       when:<input id="when"  type="text" name=""><br>
+<<<<<<< HEAD
       <button type="submit">submit</button>
   </form>
 
+=======
+      state:<input id="state"  type="text" name=""><br>
+      <button type="submit">submit</button>
+  </form>
+
+  <div id="#stateoptionid"></div>
+
+>>>>>>> b479917... Updated javascript and html
   <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 
   <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
@@ -35,6 +44,10 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"></script>
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b479917... Updated javascript and html
   <script>
 
 var eventArr=[];
@@ -45,13 +58,21 @@ var oArgs = {
 
   app_key: "3sqmmtWF3swnsGxH",
   where: city, 
+<<<<<<< HEAD
   when: "Future",   
+=======
+  date: "",   
+>>>>>>> b479917... Updated javascript and html
   cagtegory: category,
   page_size: 5,
   sort_order: "popularity"
 
 };
+<<<<<<< HEAD
 var p1, p2;
+=======
+var p1, p2, p3;
+>>>>>>> b479917... Updated javascript and html
 
 
 $(document).ready(function(){
@@ -65,6 +86,10 @@ $(document).ready(function(){
     console.log("inside getEventsAndPinn");
 
     city= $('#city').val().trim();
+<<<<<<< HEAD
+=======
+    state = $('#stateoptionid').val();
+>>>>>>> b479917... Updated javascript and html
     category= $('#category').val().trim();
     when= $('#when').val().trim();
 
@@ -81,12 +106,23 @@ $(document).ready(function(){
         zoom: 8,
         center: {lat: -34.397, lng: 150.644}
       });
+<<<<<<< HEAD
+=======
+    // p3 = gettingWeather(city);
+>>>>>>> b479917... Updated javascript and html
 
 
 
     p1.then(pushEventsToArray)
+<<<<<<< HEAD
       .then(geocodeEvents,function(err){ console.log("error")});
 
+=======
+      .then(geocodeEvents,function(err){ console.log("error")
+      // .then(gettingWeather)
+    });
+    
+>>>>>>> b479917... Updated javascript and html
   }
 
 
@@ -112,8 +148,16 @@ $(document).ready(function(){
                       venue: ele.venue_name,
                       latitude: ele.latitude,
                       longitude: ele.longitude,
+<<<<<<< HEAD
                       eventAddress: ele.venue_address+', '+ele.postal_code});
 
+=======
+                      eventAddress: ele.venue_address+', '+ele.postal_code,
+                      weather: p3
+
+                      });
+      console.log(eventArr);
+>>>>>>> b479917... Updated javascript and html
 
     });
 
@@ -143,8 +187,13 @@ $(document).ready(function(){
           data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
                 if (status === 'OK') {
                     data.map.setCenter(results[0].geometry.location);
+<<<<<<< HEAD
                     var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
 
+=======
+                    var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+p3+'</div>';
+                    console.log(contentString);
+>>>>>>> b479917... Updated javascript and html
                     var infowindow = new google.maps.InfoWindow({
                       content: contentString
                     });
@@ -166,7 +215,46 @@ $(document).ready(function(){
 
 
 });
+<<<<<<< HEAD
       
+=======
+
+
+
+
+function gettingWeather(city) {
+
+    // This is our API Key
+    var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+    // Here we are building the URL we need to query the database
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
+
+    // Here we run our AJAX call to the OpenWeatherMap API
+    $.ajax({
+        url: queryURL, 
+        method: 'GET'
+      })
+
+    // We store all of the retrieved data inside of an object called "response"
+    .done(function(response) {
+
+      // return new Promise(function(resolve,reject){
+        
+
+      //   if (response){
+      //     resolve(response);
+      //   }else {reject ("error");}
+
+      // });
+
+      console.log('response', response);
+      console.log(response.main.temp);
+});  
+
+}  
+
+>>>>>>> b479917... Updated javascript and html
     
     </script>
     

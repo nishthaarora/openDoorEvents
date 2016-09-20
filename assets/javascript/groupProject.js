@@ -1,147 +1,194 @@
 
+var eventArr=[];
+var city;
+var category;
 
-  // // Initialize Firebase
-  // var config = {
-  //   apiKey: "AIzaSyAeTLSZjy3Tm0U9UoRTePBVg2HD3mYUqQM",
-  //   authDomain: "firstgroupprojec-1473951653941.firebaseapp.com",
-  //   databaseURL: "https://firstgroupprojec-1473951653941.firebaseio.com",
-  //   storageBucket: "firstgroupprojec-1473951653941.appspot.com",
-  //   messagingSenderId: "1058292953682"
-  // };
-  // firebase.initializeApp(config);
-
-  // var database = firebase.database();
-
-
-  // making API call on eventfull  
-function apiCall()
-
-{
-	// getting category value from user input
- var categoryResponse = $('#userCategoryInput').val().trim();
- 	// getting user input of location 
- var stateResponse = $('#userStateInput').val().trim();
- 	// getting user input of date
- var dateResponse = $('#userDateInput').val().trim()
-// converting date string into numeric value
-// var dateResponseNum = Date.parse(dateResponse);
-// console.log(dateResponseNum);
-// // current day from moments.js
-// var currentDate = moment().format('YYYY-MM-DD');
-// // converting current day string into a number
-// var currentDateNum = Date.parse(currentDate);
-
-// var timeAfter7Days = currentDateNum + (7*24*60*60*1000);
-// console.log(timeAfter7Days)
-
-
-// if(dateResponseNum === currentDateNum) {
-// 	console.log('today');
-// } else if(dateResponseNum < timeAfter7Days) {
-// 	console.log('thisWeek')
-// } else {
-// 	console.log('later')
-// }
-
-
+// parameter object to be passed to eventful API for making an api call
 var apiParameters = {
 
-            app_key:"3sqmmtWF3swnsGxH",
+  app_key: "3sqmmtWF3swnsGxH",
+  where: city, 
+  date: date,   
+  cagtegory: category,
+  page_size: 2,
+  sort_order: "popularity"
 
-            category: categoryResponse,
+};
+var p1, p2, p3;
 
-            location: stateResponse,
 
-            date: dateResponse,
+$(document).ready(function(){
+  
+  $('#submitButton').on('click', getEventsAndPinn);
 
-            page_size: 2
-  };
 
-  EVDB.API.call("/events/search", apiParameters, function(response) {
-    
-    	var resultArr = response.events.event;
-    	
-    	   	resultArr.forEach(function(ele){
-    		// event address
-    		var eventAddress = ele.venue_address;
-    		// event date
-    		var eventDate = ele.start_time;
-    		// latitude
-    		var eventLatitude = ele.latitude;
-    		var eventLatitudeNumer = parseFloat(eventLatitude);
-    		// longitude
-    		var eventLongitude = ele.longitude;
-    		var eventLongitudeNumber = parseFloat(eventLongitude);
+  // get events from eventful API and pin them on the map using Google API
+  function getEventsAndPinn(event){
+    event.preventDefault();
+    // console.log("inside getEventsAndPinn");
 
-    		// lat and long together
-    		initMap(eventLatitudeNumer, eventLongitudeNumber, eventDate);
+    city= $('#city').val();
+    // console.log(city);
+    category= $('#category').val();
+    // console.log(category);
+    date= $('#date').val();
+    // console.log(date);
 
-    		
-    	})
+    apiParameters.where=city;
+    // console.log(apiParameters.where)
+    apiParameters.category = category;
+    // console.log(apiParameters.category)
+    apiParameters.date = date;
+    // console.log(apiParameters.date)             
+
+// These are the variables for the promise that we are making 
+    p1 = getEvents("/events/search", apiParameters);
+    p2 = initialiseGoogleMap(document.getElementById('map'),{
+        zoom: 8,
+        center: {lat: -34.397, lng: 150.644}
+      });
+
+  //   // p3 = ();
+
+
+// sequence of promises
+    p1.then(pushEventsToArray)
+      .then(geocodeEvents,function(err) { 
+      });
+
+  }
+
+
+/* This is our second promise that we are making in this we are initialising our googlemaps and sending the params
+divID and map parameters which are defined in p2 promise above. divId is the id in HTML for maps and mapParamObject 
+are defining the initial zoom and lat and lon for the map.
+*/
+  function initialiseGoogleMap(divID,mapParamObj) {
+
+      return new Promise(function(resolve,reject) {
+        
+        var map = new google.maps.Map(divID,mapParamObj);
+        
+        var geocoder = new google.maps.Geocoder();
+        
+        if (map && geocoder){
+          resolve({map:map,geocoder:geocoder});
+        }else {reject ("error");}
+
+      });
+  }
+
+
+/* once getEvents is executed then we are passing its values with data variable and further looping 
+through the objects of array and pushing it to our array i.e eventArr
+*/
+  function pushEventsToArray(data){
+    console.log(data);
+    data.events.event.forEach(function(ele){
+      eventArr.push({eventName : ele.title,
+                      eventDate: ele.start_time,
+                      venue: ele.venue_name,
+                      latitude: ele.latitude,
+                      longitude: ele.longitude,
+                      eventAddress: ele.venue_address+', '+ele.postal_code});  
     });
 
-}
+// p2 is the second promise which is initialising my google maps.
+    return p2;
+  }
 
-// function sum( a, b ) {
-//  var sum = a + b;
-//  var product = a * b;
-// }
 
-// var sumOf2 = sum(2,3); 
+/* This is the first promise p1 to get all the events from eventful api and we are passing 2 argu,ments url and parameters
+A call back function with event data we are getting the event data from api and sendng it to function pushEventsToArray with 
+"data"
+*/ 
+  function getEvents(url,paramObj){
 
-		var map;
 
-       function initMap(lat, long, eventDate) {
-       	var cordinates = {lat: lat, lng: long};
-       	var eventDate = eventDate;
+    return new Promise(function(resolve,reject){
 
-       	if (!map) {
-       		map = new google.maps.Map(document.getElementById('map'), {
-          	zoom: 8,
-          	center: cordinates
-        });
-       	}
-        var geocoder = new google.maps.Geocoder();  
-        geocodeLatLng(geocoder, map, cordinates, eventDate);
-        return cordinates;
-        
-      }
-
-      function geocodeLatLng(geocoder, map, cordinates, eventDate) { 
-      
-
-         geocoder.geocode({'location': cordinates}, function(results, status){
-          if (status === 'OK') {  
-          	if (results[1]) {
-              map.setZoom(11);
-              var marker = new google.maps.Marker({
-                position: cordinates,
-                map: map, 
-                
-              });
-
-              var contentString = '<div>'+results[1].formatted_address+'<br>'+'Date and Time: '+eventDate+'</div>';
-              
-              var infowindow = new google.maps.InfoWindow({
-                content: contentString
-
-              });
-
-			         			
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-              });
+          EVDB.API.call(url, paramObj, function(eventData) {
             
-            } else {
-              window.alert('No results found');
-            }
-                         
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-     
-      }
+              if(eventData){
+               resolve(eventData);
+             }else reject("error");
 
-$('#submitButton').on('click', apiCall); 
+           });
+
+
+      });
+  }
+
+
+// This is the funtion where we are defining out markers and passing the values to googlemaps
+  function geocodeEvents(data){
+    console.log(data);
+    console.log(eventArr);
+    eventArr.forEach(function(ele){
+          // console.log(ele);
+          data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+
+                if (status === 'OK') {
+                    data.map.setCenter(results[0].geometry.location);
+                    var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
+                    var infowindow = new google.maps.InfoWindow({
+                      content: contentString
+                    });
+                    var marker = new google.maps.Marker({
+                      map: data.map,
+                      position: results[0].geometry.location
+                    });
+                    marker.addListener('click', function() {
+                      infowindow.open(map, marker);
+                    });
+
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+      });
+    }
+  });
+
+    // function updateDomEventTable(){
+    //   eventArr.forEach(function(){
+    //   $('#tableBody').append('<tr>');    
+    // });
+
+  //   function getWeatherForEvent(postalCode){
+
+  //     // This is our API Key
+  //     var APIKey = "166a433c57516f51dfab1f7edaed8413";
+
+  //  // Here we are building the URL we need to query the database
+  //     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + postalCode + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
+  //        $.ajax({
+  //        url: queryURL, 
+  //        method: 'GET'
+  //      })
+
+  //  // We store all of the retrieved data inside of an object called "response"
+  //     .done(function(response) {
+
+  //       return new Promise(function(resolve,reject){
+       
+
+  //           if (response){
+  //             resolve(response);
+  //           }else {reject ("error");}
+
+  //       });
+
+    
+  //     });
+  //   }
+
+
+  // })
+
+
+
+
+
+
 
