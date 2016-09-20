@@ -19,7 +19,14 @@
   </head>
   <body>
     <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"></script>
+
+
     <script>
+
+
+
       var eventArr =
       [{
         eventAddress:"6717,Blarwood dr,austin,tx,78745",
@@ -29,37 +36,42 @@
           eventDate:"09/27/2016"
         }];  
 
-          var labelIndex = 0;
-
-
-       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+    var p = initialiseGoogleMap(document.getElementById('map'),{
           zoom: 8,
           center: {lat: -34.397, lng: 150.644}
         });
+
+
+    function initialiseGoogleMap(divID,mapParamObj){
+
+
+      return new Promise(function(resolve,reject){
+        var map = new google.maps.Map(divID,mapParamObj);
         var geocoder = new google.maps.Geocoder();
 
+        if (map && geocoder){
+          resolve({map:map,geocoder:geocoder});
+        }else {reject ("error");}
+
+      });
+    }
+
+p.then(geocodeEvents,function(err){console.log(err);});
+
+function geocodeEvents(data){
+
+   eventArr.forEach(function(ele){
         
-        geocodeAddress(geocoder, map,eventArr);
-        
-      }
+            data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+                if (status === 'OK') {
+                    data.map.setCenter(results[0].geometry.location);
+                    var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
 
-
-
-        function geocodeAddress(geocoder, resultsMap) {
-
-            eventArr.forEach(function(ele){
-        
-        geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
-          if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
-                              
                     var infowindow = new google.maps.InfoWindow({
                       content: contentString
                     });
                     var marker = new google.maps.Marker({
-                      map: resultsMap,
+                      map: data.map,
                       position: results[0].geometry.location
                     });
 
@@ -72,12 +84,13 @@
                 }
             });
       });
-      }
- 
+}
 
+
+
+      
     
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg&callback=initMap"
-    async defer></script>
+    
   </body>
 </html>

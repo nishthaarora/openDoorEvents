@@ -43,7 +43,6 @@ function show_alert()
   EVDB.API.call("/events/search", oArgs, function(oData) {
     console.log(oData);
 
-      // Note: this relies on the custom toString() methods below
 
     });
 
@@ -55,6 +54,7 @@ function show_alert2()
 
 {
 
+  var eventArry=[];
    var oArgs = {
 
       app_key: "3sqmmtWF3swnsGxH",
@@ -64,20 +64,41 @@ function show_alert2()
       where: "Austin", 
           
 
-      page_size: 5,
+      page_size: 5
 
-      sort_order: "popularity",
+    
 
    };
 
    EVDB.API.call("/events/search", oArgs, function(oData) {
     console.log(oData);
 
-      // Note: this relies on the custom toString() methods below
+      oData.events.event.forEach(function(ele){
+      eventArry.push({eventName : ele.title,
+                      eventDate: ele.start_time,
+                      venue: ele.venue_name,
+                      latitude: ele.latitude,
+                      longitude: ele.longitude,
+                      eventAdress: ele.venue_address+', '+ele.postal_code});
+
+        console.log(ele.title);
+        console.log(ele.start_time);
+        console.log(ele.venue_name);
+        console.log(ele.latitude);
+        console.log(ele.longitude);
+        console.log(ele.longitude);
+        console.log(ele.venue_address+', '+ele.postal_code)
+        console.log("---------------");
+  
+
+    
+ 
+ 
 
     });
 
-}
+});
+ }
 
 
 // $('#submitButton').on('click', makingAPICall);

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        height: 100%;
+      }
+      
+    </style>
+  </head>
+  <body>
+  <input type="button" onclick="show_alert2()" value="Query #2 " /> <br>
+    <div id="map"></div>
+    <script>
+
+    
+
+function show_alert2(){
+
+   var oArgs = {
+      app_key: "3sqmmtWF3swnsGxH",
+       where: "Austin", 
+       page_size: 5,
+      sort_order: "popularity",
+ 
+   };
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        
+        geocodeAddress(geocoder, map);
+        
+      }
+
+   EVDB.API.call("/events/search", oArgs, function(oData) {
+    console.log(oData);
+    var eventArry =[];
+
+    oData.events.event.forEach(function(ele){
+      eventArry.push({eventName : ele.title,
+                      eventDate: ele.start_time,
+                      venue: ele.venue_name,
+                      latitude: ele.latitude,
+                      longitude: ele.longitude,
+                      eventAdress: ele.venue_address+' , '+ele.postal_code};
+      console.log(ele.title);
+      console.log(ele.start_time);
+      console.log(ele.venue_name);
+      console.log(ele.latitude);
+      console.log(ele.longitude);
+      console.log("---------------");
+
+
+        function geocodeAddress(geocoder, resultsMap) {
+
+        eventArr.forEach(function(ele){
+        
+        geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+             
+
+
+            });
+
+             marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      });
+      }
+      
+    });
+
+      // Note: this relies on the custom toString() methods below
+
+    });
+
+}
+
+
+
+
+
+
+
+
+    //----------------------------------------------
+      var eventArr =
+      [{
+        eventAddress:"6717,Blarwood dr,austin,tx,78745",
+        eventDate:"09/27/2016"
+      }, {
+          eventAddress:"9613 castle pines dr,austin,tx",
+          eventDate:"09/27/2016"
+        }];  
+
+          
+      
+
+      function geocodeAddress(geocoder, resultsMap) {
+
+        eventArr.forEach(function(ele){
+        
+        geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
+
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+             
+
+
+            });
+
+             marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      });
+      }
+    </script>
+
+<script type="text/javascript" src="http://api.eventful.com/js/api">
+
+</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg&callback=initMap"
+    async defer></script>
+  </body>
+</html>
