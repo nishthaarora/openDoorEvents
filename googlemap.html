@@ -50,6 +50,7 @@
           if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
             var contentString ='<div>'+ele.eventAddress+'<br>'+ele.eventDate+'</div>';
+                              
 
               var infowindow = new google.maps.InfoWindow({
                 content: contentString

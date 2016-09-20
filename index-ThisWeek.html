@@ -3,7 +3,7 @@
 	<head>
 		<title>1st Group Project</title>
 		<meta name="viewport" content="initial-scale=1.0">
-		<meta charset="utf-8">
+		<meta charset="utf-8">		
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -33,7 +33,7 @@
 					<ul class="tabs eventTabs">
 						<li id="todayEvent" class="eventToday tab col s3"><a href="index.html">Today</a>
 					</li>
-					<li id="thisWeek" class="tab col s3"><a class="active" href="index-ThisWeek.html">This Week</a></li>
+					<li id="thisWeek"  class="tab col s3"><a class="active" href="#">This Week</a></li>
 					<li id="next-Week" class="tab col s3"><a href="index-NextWeek.html">Next Week</a></li>
 					<li id="later" class="tab col s3"><a href="index-later.html">Later...</a></li>
 				</ul>
@@ -41,14 +41,7 @@
 		</div>
 		<!-- displaying Map -->
 		<div id="map"></div>
-		<!-- this is the input form  -->
-		<form id='form' class="form-group userInputForm">
-			<input id="userCategoryInput" type="text" name="category" placeholder="category">
-			<input id="userStateInput" type="text" name="state" placeholder="state">
-			<input id="userDateInput" type="date" name="date" placeholder="date">
-			<button id="submitButton" type="button">Submit</button>
-		</form>
-	</div>
+
 	<!-- this is a CDN link to jquery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<!-- link for making an api call to eventful website -->

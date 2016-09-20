@@ -1,28 +1,46 @@
 <html>
 
-Javascript Sample page <br>
 
-<script type="text/javascript" src="http://api.eventful.com/js/api">
+<body>
 
-</script>
 
+<input id=categoryName type="text" name="category" placeholder="category name"><br>
+<input id=location type="text" name="location" placeholder="location"><br>
+
+
+
+<!-- jquery -->
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<!-- api -->
+<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+<!-- js -->
 <script type="text/javascript">
+
+// var categories = [];
+// function makingAPICall(){
+  
+  // categories.push(topic);
+  // console.log(categories);
+// }
 
 function show_alert()
 
 {
+  var topic = $('#categoryName').val().trim();
+  var location = $('#location').val().trim();
 
   var oArgs = {
 
             app_key:"3sqmmtWF3swnsGxH",
 
-            id: "20218701",
+            category: topic,
 
-            page_size: 25 ,
+            location: location,
 
+            page_size: 10 
   };
 
-  EVDB.API.call("/events/get", oArgs, function(oData) {
+  EVDB.API.call("/events/search", oArgs, function(oData) {
     console.log(oData);
 
       // Note: this relies on the custom toString() methods below
@@ -41,7 +59,8 @@ function show_alert2()
 
       app_key: "3sqmmtWF3swnsGxH",
 
-      
+      description: "music",
+        
       where: "Austin", 
           
 
@@ -60,13 +79,13 @@ function show_alert2()
 
 }
 
+
+// $('#submitButton').on('click', makingAPICall);
+
 </script>
 
 
 
-<body>
-
-Run Sample api searches <br><br>
 
 <input type="button" onclick="show_alert()" value="Query #1 " /> <br>
 
