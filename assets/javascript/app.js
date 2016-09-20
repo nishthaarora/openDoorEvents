@@ -48,7 +48,9 @@ $(document).ready(function() {
 
         // sequence of promises
         p1.then(pushEventsToArray)
-            .then(geocodeEvents);
+            .then(geocodeEvents,function(err){
+              console.log(err);
+            });
 
 
 
@@ -138,7 +140,12 @@ $(document).ready(function() {
 
                     if (status === 'OK') {
                         data.map.setCenter(results[0].geometry.location);
-                        var contentString = '<div>' + ele.eventAddress + '<br>' + ele.eventDate + '<br>' + 'weather: ' + temp + ' F' + '</div>';
+
+                         var contentString ='<div>'+'Event: '+ele.eventName+'<br>'+
+                                        'Address: '+ele.eventAddress+'<br>'+
+                                        'Date: '+ele.eventDate+'<br>'+
+                                        'temp: '+temp+'</div>';
+
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
                         });
