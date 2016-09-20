@@ -25,21 +25,14 @@ $(document).ready(function(){
   // get events from eventful API and pin them on the map using Google API
   function getEventsAndPinn(event){
     event.preventDefault();
-    // console.log("inside getEventsAndPinn");
 
     city= $('#city').val();
-    // console.log(city);
     category= $('#category').val();
-    // console.log(category);
     date= $('#date').val();
-    // console.log(date);
 
     apiParameters.where=city;
-    // console.log(apiParameters.where)
     apiParameters.category = category;
-    // console.log(apiParameters.category)
-    apiParameters.date = date;
-    // console.log(apiParameters.date)             
+    apiParameters.date = date;             
 
 // These are the variables for the promise that we are making 
     p1 = getEvents("/events/search", apiParameters);
@@ -47,8 +40,6 @@ $(document).ready(function(){
         zoom: 8,
         center: {lat: -34.397, lng: 150.644}
       });
-
-  //   // p3 = ();
 
 
 // sequence of promises
@@ -68,7 +59,7 @@ are defining the initial zoom and lat and lon for the map.
       return new Promise(function(resolve,reject) {
         
         var map = new google.maps.Map(divID,mapParamObj);
-        
+
         var geocoder = new google.maps.Geocoder();
         
         if (map && geocoder){
@@ -83,7 +74,6 @@ are defining the initial zoom and lat and lon for the map.
 through the objects of array and pushing it to our array i.e eventArr
 */
   function pushEventsToArray(data){
-    console.log(data);
     data.events.event.forEach(function(ele){
       eventArr.push({eventName : ele.title,
                       eventDate: ele.start_time,
@@ -122,10 +112,9 @@ A call back function with event data we are getting the event data from api and 
 
 // This is the funtion where we are defining out markers and passing the values to googlemaps
   function geocodeEvents(data){
-    console.log(data);
-    console.log(eventArr);
+
     eventArr.forEach(function(ele){
-          // console.log(ele);
+          
           data.geocoder.geocode({'address': ele.eventAddress}, function(results, status) {
 
                 if (status === 'OK') {
@@ -149,42 +138,6 @@ A call back function with event data we are getting the event data from api and 
       });
     }
   });
-
-    // function updateDomEventTable(){
-    //   eventArr.forEach(function(){
-    //   $('#tableBody').append('<tr>');    
-    // });
-
-  //   function getWeatherForEvent(postalCode){
-
-  //     // This is our API Key
-  //     var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
-  //  // Here we are building the URL we need to query the database
-  //     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + postalCode + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
-  //        $.ajax({
-  //        url: queryURL, 
-  //        method: 'GET'
-  //      })
-
-  //  // We store all of the retrieved data inside of an object called "response"
-  //     .done(function(response) {
-
-  //       return new Promise(function(resolve,reject){
-       
-
-  //           if (response){
-  //             resolve(response);
-  //           }else {reject ("error");}
-
-  //       });
-
-    
-  //     });
-  //   }
-
-
-  // })
 
 
 
