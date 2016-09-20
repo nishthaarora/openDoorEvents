@@ -48,7 +48,7 @@ $(document).ready(function() {
 
         // sequence of promises
         p1.then(pushEventsToArray)
-            .then(geocodeEvents,function(err){
+          .then(geocodeEvents,function(err){
               console.log(err);
             });
 
@@ -100,7 +100,8 @@ $(document).ready(function() {
                 });
             });
 
-            // p2 is the second promise which is initialising my google maps.
+            updateDomTable();
+             // p2 is the second promise which is initialising my google maps.
             return p2;
         }
 
@@ -187,6 +188,17 @@ $(document).ready(function() {
     function getTempFromWeatherObj(response) {
         var temp = response.main.temp;
         return temp;
+    }
+
+    function updateDomTable(){
+      eventArr.forEach(function(ele){
+        $('#tableBody').append('<tr>'+
+                      '<td>'+ele.eventName+'</td>'+
+                      '<td>'+ele.eventAddress+'</td>'+
+                      '<td>'+ele.eventDate+'</td>'+
+                      '<td></td>'+
+                    '</tr>');
+      });    
     }
 
 
