@@ -156,6 +156,9 @@ $(document).ready(function() {
                         marker.addListener('click', function() {
                             infowindow.open(map, marker);
                         });
+                        marker.addListener('mouseout', function() {
+                            infowindow.close(map, marker);
+                        });
 
                     } else {
                         alert('Geocode was not successful for the following reason: ' + status);
