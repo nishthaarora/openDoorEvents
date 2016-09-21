@@ -1,14 +1,12 @@
 var eventArr = [];
 var city;
 var category;
+var zipCode;
 
 // parameter object to be passed to eventful API for making an api call
 var apiParameters = {
 
     app_key: "3sqmmtWF3swnsGxH",
-    where: city,
-    date: date,
-    cagtegory: category,
     page_size: 2,
     sort_order: "popularity"
 
@@ -22,21 +20,33 @@ $(document).ready(function() {
 
 
     // get events from eventful API and pin them on the map using Google API
-    function getEventsAndPinn(event) {
+    function getEventsAndPinn(event, date) {
         event.preventDefault();
 
+    // capturing user inputs
+        state = $('#state').val();
         city = $('#city').val();
         category = $('#category').val();
-        date = $('#date').val();
+        date = date || $('#date').val();
+        
+    // making an API call by sending user inputs
+        apiParameters.location = '';
+        if( city ) {
+            apiParameters.location = city + ','; 
+        }
 
-        apiParameters.where = city;
+        if ( state ) {
+            apiParameters.location += state;
+        }
         apiParameters.category = category;
         apiParameters.date = date;
+        
+
 
         // These are the variables for the promise that we are making 
-        p0 = getWeather(city);
+        p0 = getWeather(zipCode);
         p1 = getEvents("/events/search", apiParameters);
-
+        console.log(p1);
         p2 = initialiseGoogleMap(document.getElementById('map'), {
             zoom: 12,
             center: {
@@ -69,15 +79,12 @@ $(document).ready(function() {
                 var geocoder = new google.maps.Geocoder();
 
                 if (map && geocoder) {
-    
-            
                     resolve({
                         map: map,
                         geocoder: geocoder,
                         
                     });
-                }
-                      
+                }         
                 else {
                     reject("error");
                 }
@@ -90,6 +97,7 @@ $(document).ready(function() {
         through the objects of array and pushing it to our array i.e eventArr
         */
         function pushEventsToArray(data) {
+            console.log(eventArr);
             data.events.event.forEach(function(ele) {
                 eventArr.push({
                     eventName: ele.title,
@@ -97,7 +105,9 @@ $(document).ready(function() {
                     venue: ele.venue_name,
                     latitude: ele.latitude,
                     longitude: ele.longitude,
-                    eventAddress: ele.venue_address + ', ' + ele.postal_code
+                    eventAddress: ele.venue_address + ', ' + ele.postal_code,
+                    city: ele.city_name,
+                    state: ele.region_name
 
                 });
             });
@@ -108,9 +118,10 @@ $(document).ready(function() {
         }
 
 
-        /* This is the first promise p1 to get all the events from eventful api and we are passing 2 argu,ments url and parameters
-        A call back function with event data we are getting the event data from api and sendng it to function pushEventsToArray with 
-        "data"
+        /* This is the first promise p1 to get all the events from eventful api 
+        and we are passing 2 arguments url and parameters a call back function 
+        with event data. We are getting the event data from api and sendng it to
+         function pushEventsToArray with "data"
         */
         function getEvents(url, paramObj) {
 
@@ -137,11 +148,16 @@ $(document).ready(function() {
 
             eventArr.forEach(function(ele) {
 
+
                 data.geocoder.geocode({
                     'address': ele.eventAddress
                 }, function(results, status) {
 
                     if (status === 'OK') {
+                        console.log(ele);
+    console.log('city' + city);
+                console.log('stats' + state);
+
                         data.map.setCenter(results[0].geometry.location);
 
                          var contentString ='<div>'+'Event: '+ele.eventName+'<br>'+
@@ -170,14 +186,14 @@ $(document).ready(function() {
             });
         }
 
-
-        function getWeather(city) {
+// This ia function to get the weather from the third API i.e weather
+        function getWeather(zipCode) {
 
             // This is our API Key
             var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
             // Here we are building the URL we need to query the database
-            var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
+            var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipCode + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
             return $.ajax({
                 url: queryURL,
                 method: 'GET'
@@ -187,6 +203,7 @@ $(document).ready(function() {
 
     };
 
+// This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
         temp = response.main.temp;
         
@@ -203,5 +220,16 @@ $(document).ready(function() {
       });    
     }
 
+
+    $(document).on( 'click', '.viewSwitch', function ( event ) {
+        event.preventDefault();
+        eventArr = [];
+
+        var linkHash = $( this ).find( 'a' ).attr( 'href' );
+
+        // remove hash from front;
+        $('#submitButton').trigger( 'click', linkHash.slice(1, linkHash.length) );
+
+    });
 
 });
