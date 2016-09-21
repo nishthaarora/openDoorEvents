@@ -144,7 +144,7 @@ $(document).ready(function() {
 
                          var contentString ='<div>'+'Event: '+ele.eventName+'<br>'+
                                         'Address: '+ele.eventAddress+'<br>'+
-                                        'Date: '+ele.eventDate+'<br>'+
+                                        'Date: '+moment(ele.eventDate).format('MM DD YYYY, hh:mm a')+'<br>'+
                                         'temp: '+temp+'</div>';
 
                         var infowindow = new google.maps.InfoWindow({
