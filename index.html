@@ -16,9 +16,10 @@
 				<div class="row ">
 					<div class="col s12 eventDisplayTabs">
 						<ul class="tabs eventTabs">
-							<li class="tab col s2 "><a href="#currentWeek">Current Week</a></li>
-							<li class="tab col s2 "><a class="active" href="#nextWeek">Next Week</a></li>
-							<li class="tab col s2 "><a href="#later">Later...</a></li>
+							<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
+							<li id="currentWeek" class="tab col s2 viewSwitch"><a href="#This Week">Current Week</a></li>
+							<li id="nextWeek" class="tab col s2 viewSwitch"><a class="active" href="#Next Week">Next Week</a></li>
+							<li id="future" class="tab col s2 viewSwitch"><a href="#Future">Future...</a></li>
 						</ul>
 					</div>
 				</div>
@@ -61,13 +62,19 @@
 					          			<input id="email" type="email" class="validate">
 					          			<label for="email" data-error="wrong" data-success="right">Email</label>
 					        		</div>
+					        		
+					        		<div class="input-field col s6">
+						        		<input id="state" type="text"  class="validate" value="state" required="required">
+						        	</div>
+
 					        		<div class="input-field col s6">
 						        		<input id="city" type="text" class="validate" placeholder="city">
 						        		<!-- <label for="icon_prefix">Enter City Name</label> -->
 						    		</div>
 
+						    		
 
-					    			<div class="input-field col s6">
+					    			<!-- <div class="input-field col s6">
 						        		<select id="stateoptionid">
 						        	<option value="" selected>Choose State</option>
 									<option value="AL">Alabama</option>
@@ -121,9 +128,9 @@
 									<option value="WV">West Virginia</option>
 									<option value="WI">Wisconsin</option>
 									<option value="WY">Wyoming</option>
-										</select>
+										</select> -->
 								
-									</div>
+									<!-- </div> -->
 									<div class="input-field col s6">
 											<!-- <select id="category"> -->
 											<input id="category" type="text" name="category" placeholder="category">
