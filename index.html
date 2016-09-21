@@ -24,31 +24,68 @@
 					</div>
 				</div>
 
-				<div id="map"></div>
+				<span class="input-field col m3 col s12">
+					<input id="state" type="text"  class="validate" placeholder="state" required="required">
+				</span>
+				
+				<span class="input-field col m3 col s12">
+					<input id="city" type="text" class="validate" placeholder="city">
+					<!-- <label for="icon_prefix">Enter City Name</label> -->
+				</span>
+				<span class="input-field col m2 col s12">
+					<!-- <select id="category"> -->
+					<input id="category" type="text" name="category" placeholder="category">
+					<!-- 		<option value="" selected>Choose Event</option>
+					<option value="family">Family</option>
+					<option value="education">Education</option>
+					<option value="concerts">Concerts</option>
+					<option value="comedy">Comedy</option>
+					<option value="networking">Networking</option>	 -->
+					<!-- </select>	 -->
+				</span>
+				<span class="input-field col m3 col s12">
+					<input id="date" type="date">
+				</span>
 
-				<div class="row">
-					<div class="col s3">
+				<span class="col m1">
+				<button id=submitButton>Submit</button>	
+				</span>
+				
+				</div>
+			</form>
+			
+			<div class="row ">
+				<div class="col s12 eventDisplayTabs">
+					<ul class="tabs eventTabs">
+						<li class="tab col s2 "><a href="#currentWeek">Current Week</a></li>
+						<li class="tab col s2 "><a class="active" href="#nextWeek">Next Week</a></li>
+						<li class="tab col s2 "><a href="#later">Later...</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="map"></div>
+			<div class="row">
+				<div class="col s3">
+					
+				</div>
+				
+				
+				<!-- this is the table showing events data in a table format-->
+				<div class="col s12">
+					<!-- Teal page content  -->
+					<table>
+						<thead id="tableHeading" class="headingTable divider">
+							<tr>
+								<th data-field="id">Event Name</th>
+								<th data-field="name">Event Location</th>
+								<th data-field="price">Event Date/Time</th>
+								<th data-field="price">Event Price</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody" class="bodyTable">
 							
-				     </div>
-				    
-     	      	
-				    <!-- this is the table showing events data in a table format-->
-	      			<div class="col s12">
-	        		<!-- Teal page content  -->
-	        				<table>
-									<thead id="tableHeading" class="headingTable divider">
-										<tr>
-											<th data-field="id">Event Name</th>
-											<th data-field="name">Event Location</th>
-											<th data-field="price">Event Date/Time</th>
-											<th data-field="price">Event Price</th>
-										</tr>
-									</thead>
-									<tbody id="tableBody" class="bodyTable">
-						
-									</tbody>
-							</table> 
-	      			</div>	
+						</tbody>
+					</table>
 				</div>
 			 	
 				<!--form for taking user input -->

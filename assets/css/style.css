@@ -6,6 +6,13 @@ body
     padding: 0;
 }
 
+body 
+{
+	background-image: url(../images/background5.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;	
+}
+
 div#map
 {
     height: 500px;
@@ -15,10 +22,16 @@ div#map
 {
 	text-align: center;
 	font-family: 'Cutive', serif;
-	color: green;
+	color: #251e08;
 }
 
 .userInputForm 
 {
-	width:20%;
+background-color: white;
+padding:15px;
+}
+
+button#submitButton
+{
+	margin: 34px 2px 20px 0;
 }
