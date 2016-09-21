@@ -98,6 +98,8 @@ $(document).ready(function() {
         */
         function pushEventsToArray(data) {
             console.log(eventArr);
+            eventArr = [];
+            $('#tableBody').children().remove();
             data.events.event.forEach(function(ele) {
                 eventArr.push({
                     eventName: ele.title,
