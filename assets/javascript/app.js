@@ -13,7 +13,7 @@ var apiParameters = {
     sort_order: "popularity"
 
 };
-var p1, p2, p0;
+var p1, p2, p0,temp;
 
 
 $(document).ready(function() {
@@ -38,14 +38,16 @@ $(document).ready(function() {
         p1 = getEvents("/events/search", apiParameters);
 
         p2 = initialiseGoogleMap(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 12,
             center: {
                 lat: -34.397,
                 lng: 150.644
             }
         });
 
-
+        p0.then(getTempFromWeatherObj,function(err){
+              console.log(err);
+            });
         // sequence of promises
         p1.then(pushEventsToArray)
           .then(geocodeEvents,function(err){
@@ -67,16 +69,16 @@ $(document).ready(function() {
                 var geocoder = new google.maps.Geocoder();
 
                 if (map && geocoder) {
-
-                    getWeather(city)
-                        .then(function(weatherResponse) {
-                            resolve({
-                                map: map,
-                                geocoder: geocoder,
-                                temp: getTempFromWeatherObj(weatherResponse)
-                            });
-                        });
-                } else {
+    
+            
+                    resolve({
+                        map: map,
+                        geocoder: geocoder,
+                        
+                    });
+                }
+                      
+                else {
                     reject("error");
                 }
 
@@ -131,7 +133,7 @@ $(document).ready(function() {
         // This is the funtion where we are defining out markers and passing the values to googlemaps
         function geocodeEvents(data) {
 
-            var temp = data.temp;
+            
 
             eventArr.forEach(function(ele) {
 
@@ -145,7 +147,7 @@ $(document).ready(function() {
                          var contentString ='<div>'+'Event: '+ele.eventName+'<br>'+
                                         'Address: '+ele.eventAddress+'<br>'+
                                         'Date: '+moment(ele.eventDate).format('MM DD YYYY, hh:mm a')+'<br>'+
-                                        'temp: '+temp+'</div>';
+                                        'temp: '+temp+' F'+'</div>';
 
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
@@ -186,8 +188,8 @@ $(document).ready(function() {
     };
 
     function getTempFromWeatherObj(response) {
-        var temp = response.main.temp;
-        return temp;
+        temp = response.main.temp;
+        
     }
 
     function updateDomTable(){
