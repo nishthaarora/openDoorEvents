@@ -205,6 +205,8 @@ $(document).ready(function() {
         
     }
 
+
+// function to update the table of events on the webpage
     function updateDomTable(){
       eventArr.forEach(function(ele){
         $('#tableBody').append('<tr>'+
@@ -217,6 +219,7 @@ $(document).ready(function() {
     }
 
 
+// this function is enebling the functionality of the tabs: this week, today etc
     $(document).on( 'click', '.viewSwitch', function ( event ) {
         event.preventDefault();
         eventArr = [];
@@ -228,34 +231,8 @@ $(document).ready(function() {
 
     });
 
-    // hiding week's tabs when map is not displayed
 
-
-    
-//     $('.eventDisplayTabs').toggle(); 
-
-//     function toggleVisibility() {
-      
-//        if ($('.carousel').is(':visible')) {
-                       
-//         } else {
-           
-//            $('#submitButton').click(function() {
-
-//          $('.eventDisplayTabs').show();  
-//          $('.carousel').toggle();
-//             })
-
-
-//         }
-
-//     }
-
-
-// toggleVisibility();
-    
-    
-
+// This function is hiding carousel from the web page and displaying the map on click of submit
 
     $('#submitButton').on('click', function(){
         $('.eventDisplayTabs').show();    
