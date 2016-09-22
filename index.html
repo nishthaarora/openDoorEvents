@@ -8,6 +8,15 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+
+
+  	  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+		<!-- Firebase Reference -->
+		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
 	</head>
 	<body>	 
 			<div class="container">
@@ -55,8 +64,8 @@
 						
 				   			<form >
 					      			<div class="input-field col s12">
-						        		<input id="icon_prefix" type="text" class="validate">
-						        		<label for="icon_prefix">Enter Your Name</label>
+						        		<input id="userName" type="text" class="validate">
+						        		<label for="userName">Enter Your Name</label>
 						    		</div>
 									<div class="input-field col s12">
 					          			<input id="email" type="email" class="validate">
@@ -153,7 +162,9 @@
 
 	    </div>
 	<!-- this is a CDN link to jquery -->
+	<!--
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	-->
 	<!-- link for making an api call to eventful website -->
 	<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
 	<!-- loading google maps -->
