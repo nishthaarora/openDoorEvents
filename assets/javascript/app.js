@@ -16,6 +16,7 @@ var p1, p2, p0,temp;
 
 $(document).ready(function() {
 
+
     $('#submitButton').on('click', getEventsAndPinn);
 
 
@@ -46,7 +47,6 @@ $(document).ready(function() {
         // These are the variables for the promise that we are making 
         p0 = getWeather(zipCode);
         p1 = getEvents("/events/search", apiParameters);
-        console.log(p1);
         p2 = initialiseGoogleMap(document.getElementById('map'), {
             zoom: 12,
             center: {
@@ -97,9 +97,10 @@ $(document).ready(function() {
         through the objects of array and pushing it to our array i.e eventArr
         */
         function pushEventsToArray(data) {
-            console.log(eventArr);
+            
             eventArr = [];
             $('#tableBody').children().remove();
+
             data.events.event.forEach(function(ele) {
                 eventArr.push({
                     eventName: ele.title,
@@ -156,9 +157,6 @@ $(document).ready(function() {
                 }, function(results, status) {
 
                     if (status === 'OK') {
-                        console.log(ele);
-    console.log('city' + city);
-                console.log('stats' + state);
 
                         data.map.setCenter(results[0].geometry.location);
 
@@ -211,6 +209,8 @@ $(document).ready(function() {
         
     }
 
+
+// function to update the table of events on the webpage
     function updateDomTable(){
       eventArr.forEach(function(ele){
         $('#tableBody').append('<tr>'+
@@ -223,6 +223,7 @@ $(document).ready(function() {
     }
 
 
+// this function is enebling the functionality of the tabs: this week, today etc
     $(document).on( 'click', '.viewSwitch', function ( event ) {
         event.preventDefault();
         eventArr = [];
@@ -233,5 +234,16 @@ $(document).ready(function() {
         $('#submitButton').trigger( 'click', linkHash.slice(1, linkHash.length) );
 
     });
+
+
+// This function is hiding carousel from the web page and displaying the map on click of submit
+
+    $('#submitButton').on('click', function(){
+        $('.eventDisplayTabs').show();    
+        $('.carousel').hide();    
+    })
+
+
+
 
 });

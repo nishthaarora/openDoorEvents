@@ -4,21 +4,80 @@ body
     height: 100%;
     margin: 0;
     padding: 0;
+
 }
 
-div#map
+body 
 {
-    height: 500px;
+	background-image: url(../images/background5.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;	
+}
+
+#map
+{
+    height: 380px;
+
+}
+.map-row 
+{
+	margin-top: 20px;
+	position: relative;
+
 }
 
 .heading
 {
 	text-align: center;
 	font-family: 'Cutive', serif;
-	color: green;
+	color: #251e08;
 }
 
 .userInputForm 
 {
-	width:20%;
+margin-top: 60px;
+padding:15px;
+background-color: #111110;
+opacity: 0.5;
+}
+
+#submitButton
+{
+	margin: 34px 2px 20px 0;
+	background-color: #8bc34a;
+	border-radius: 5px;
+}
+
+
+::-webkit-input-placeholder, #date {
+    color: #8bc34a;
+    font-weight: bolder;
+
+}
+
+.col.s12.eventDisplayTabs {
+	margin-top: 20px;
+	position:absolute;
+	top: 0;
+	right:0;
+	z-index: 100;
+	width: 60%;
+    opacity: 0.5;
+    border:1px solid black;
+    background-color: #8bc34a;
+    display:none;
+}
+
+.tabs .tab a:hover {	
+	
+	background-color: #111110;
+}
+
+.tabs .tab a {
+	color: #261f09;
+	font-weight: bolder;
+}
+
+.carousel {
+	border:1px solid black;
 }
