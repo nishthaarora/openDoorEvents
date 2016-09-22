@@ -97,6 +97,10 @@ $(document).ready(function() {
         through the objects of array and pushing it to our array i.e eventArr
         */
         function pushEventsToArray(data) {
+            
+            eventArr = [];
+            $('#tableBody').children().remove();
+
             data.events.event.forEach(function(ele) {
                 eventArr.push({
                     eventName: ele.title,
