@@ -8,6 +8,10 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 	</head>
 	<body>
 		<div class="container">
@@ -39,6 +43,14 @@
 					<!-- closing user input form -->
 				</div>
 			</form>
+
+
+			<form>
+					<input id="userName" type="text" class="validate">
+ 					<label for="userName">Enter Your Name</label>
+
+			</form>
+
 			<!-- map display area -->
 			<div class="map-row">
 
@@ -91,7 +103,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
 		async defer></script>
 		<!-- this is a CDN link to firebase -->
-		<!-- <script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script> -->
+		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 		<!--CDN for moment.js  -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 		<!-- this is a link to internal JS file -->
