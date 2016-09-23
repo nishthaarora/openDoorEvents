@@ -65,7 +65,7 @@ $(document).ready(function() {
 
 
         // These are the variables for the promise that we are making
-        p0 = getWeather(zipCode);
+        p0 = getWeather(city+','+state+',usa');
         p1 = getEvents("/events/search", apiParameters);
         p2 = initialiseGoogleMap(document.getElementById('map'), {
             zoom: 12,
@@ -224,6 +224,7 @@ $(document).ready(function() {
 
     // This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
+        console.log("weather",response);
         temp = response.main.temp;
 
     }
