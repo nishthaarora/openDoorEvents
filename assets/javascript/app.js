@@ -9,8 +9,28 @@ var apiParameters = {
     page_size: 2,
     sort_order: "popularity"
 
-};
+}; <<
+<< << < HEAD
 var p1, p2, p0, temp;
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAsq6cXBKkFnimoovY-5ejzKIJ4kfMT6Xk",
+    authDomain: "groupproject3-b7b27.firebaseapp.com",
+    databaseURL: "https://groupproject3-b7b27.firebaseio.com",
+    storageBucket: "groupproject3-b7b27.appspot.com",
+    messagingSenderId: "758842518995"
+};
+
+firebase.initializeApp(config);
+
+
+var database = firebase.database();
+var userName;
+var cityName;
+var usersRef;
+var eventsArray = [];
+var cityArray = [];
 
 $(document).ready(function() {
 
@@ -21,8 +41,11 @@ $(document).ready(function() {
     // get events from eventful API and pin them on the map using Google API
     function getEventsAndPinn(event, date) {
         event.preventDefault();
+        // store user event info into firebase database
+        storeInFirebase();
 
         // capturing user inputs
+
         state = $('#state').val();
         city = $('#city').val();
         category = $('#category').val();
@@ -280,7 +303,7 @@ $(document).ready(function() {
 
     $('#submitButton').on('click', function() {
         $('.eventDisplayTabs').show();
-        $('.carousel').hide();
+
     })
 
 
@@ -288,3 +311,48 @@ $(document).ready(function() {
 
 
 });
+
+//on entering username get the location/city and store them in an array
+$("#userName").change(function() {
+    userName = $("#userName").val();
+    usersRef = database.ref().child('users/' + userName + '/locations');
+
+    usersRef.once("value", function(snapshot) {
+
+        var location = snapshot.val();
+        console.log(location);
+        for (var key in location) {
+            cityArray.push(location[key].cityName);
+            console.log("cityName:" + location[key].cityName);
+        }
+        console.log("cityArray" + cityArray);
+
+    });
+
+});
+
+$("#city").autocomplete({
+    source: cityArray
+});
+
+function storeInFirebase() {
+    userName = $("#userName").val();
+    cityName = $("#city").val();
+    category = $("#category").val();
+    state = $("#state").val();
+
+    console.log("userName" + userName);
+    console.log("cityName" + cityName);
+    console.log("category" + category);
+    console.log("state" + state);
+    usersRef = database.ref().child('users/' + userName);
+
+
+    usersRef.child('locations').push({
+        cityName: cityName,
+        state: state,
+        category: category
+    });
+
+    console.log("push done");
+}
