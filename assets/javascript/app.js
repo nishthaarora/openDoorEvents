@@ -234,7 +234,7 @@ $(document).ready(function() {
 
     // This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
-<<<<<<< HEAD
+
         console.log("weather reasponse",response);
         tempForcastArr=[];
         response.list.forEach(function(ele){
@@ -255,10 +255,7 @@ $(document).ready(function() {
         }else{
         return eventTempObj[0].temp;
         }
-=======
-        console.log("weather",response);
-        temp = response.main.temp;
->>>>>>> master
+
 
     }
 
