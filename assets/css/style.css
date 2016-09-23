@@ -4,14 +4,61 @@ body
     height: 100%;
     margin: 0;
     padding: 0;
-
-}
-
-body 
-{
-	background-image: url(../images/background5.jpg);
+    /*background-image: url(../images/background5.jpg);*/
 	background-repeat: no-repeat;
 	background-size: cover;	
+	background-color: #66ABBC;
+}
+
+
+
+/*navigation bar*/
+
+.navBar {
+	background-color: #FFF7C0;
+	
+}
+
+/*this is the page heading with logo etc*/
+.heading
+{
+	text-align: center;
+	font-family: 'Cutive', serif;
+	color: #251e08;
+	font-size: 25px;
+}
+
+/*id  for text input field*/
+#userName{
+	width:35%;
+}
+
+/*id carrying an name input and submit button*/
+.userNameInput.col.s5 {
+	float:right;
+	margin-top:32px;
+	font-weight: bolder;
+}
+
+/*submit button*/
+#enterWebsite{
+	margin-left: 10px;
+}
+
+/*end of navbar styling*/
+
+
+
+/*front page container design*/
+
+div.container.frontPage{
+/*background-color: purple;*/
+}
+
+/*end of front page container design*/
+
+.mainPage {
+	display:none;
 }
 
 #map
@@ -26,16 +73,11 @@ body
 
 }
 
-.heading
-{
-	text-align: center;
-	font-family: 'Cutive', serif;
-	color: #251e08;
-}
 
-.userInputForm 
+
+.userInputForm
 {
-margin-top: 60px;
+margin: 60px 50px;
 padding:15px;
 background-color: #111110;
 opacity: 0.5;
@@ -49,7 +91,7 @@ opacity: 0.5;
 }
 
 
-::-webkit-input-placeholder, #date {
+::-webkit-input-placeholder, #date{
     color: #8bc34a;
     font-weight: bolder;
 

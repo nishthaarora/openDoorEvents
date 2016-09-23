@@ -2,21 +2,40 @@
 <html>
 	<head>
 		<title>Open Door Events</title>
+
 		<meta name="viewport" content="initial-scale=1.0">
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
-		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
+		<!-- internal stylesheet -->
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<!-- animation stylesheet -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+		<!-- google fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
 	</head>
+
+<!-- this is the navbar of the website -->
 	<body>
-		<div class="container">
-			<h1 class="heading animated lightSpeedIn">Open Door Events</h1>
-			
+
+		<div class="row navBar">
+			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
+
+			<div class="userNameInput col s5">
+				<!-- <label id="nameLabel" for="userName">Enter Your Name</label> -->
+				<input id="userName" type="text" class="validate" placeholder="Full Name">
+				<button id="enterWebsite">Submit</button>
+			</div>
+		</div>
+
+
+		<div class="container frontPage">
+
+
+		</div>
+
+		<div class="container mainPage">
+			<!-- <h1 class="heading animated lightSpeedIn">Open Door Events</h1> -->
+
 			<!-- creating form for the page -->
 			<form class="userInputForm">
 				<div class="row col">
@@ -43,17 +62,8 @@
 					<!-- closing user input form -->
 				</div>
 			</form>
-
-
-			<form>
-					<input id="userName" type="text" class="validate">
- 					<label for="userName">Enter Your Name</label>
-
-			</form>
-
 			<!-- map display area -->
 			<div class="map-row">
-
 				<div class="col m12 s12 eventDisplayTabs">
 					<ul class="tabs eventTabs">
 						<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
@@ -63,19 +73,12 @@
 					</ul>
 				</div>
 
-					<div class="carousel m12 s12">
-					<a class="carousel-item" href="#one!"><img class="materialboxed" src="https://www.flickr.com/photos/fotografm/7129552723/"></a>
-					<a class="carousel-item" href="#two!"><img class="materialboxed" src="assets/images/background4.jpg"></a>
-					<a class="carousel-item" href="#three!"><img class="materialboxed" src="assets/images/background5.jpg"></a>
-					<a class="carousel-item" href="#four!"><img class="materialboxed" src=></a>
-					<a class="carousel-item" href="#five!"><img class="materialboxed" src=></a>
-				</div>
 
-				<div id="map">					
+				<!-- map div -->
+				<div id="map">
 				</div>
-
 			</div>
-			
+
 			<!-- this is the table showing events data in a table format-->
 			<div class="col s12">
 				<!-- Table content  -->
@@ -90,13 +93,21 @@
 					</thead>
 					<!-- table body -->
 					<tbody id="tableBody" class="bodyTable">
-						
+
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<!-- this is a CDN link to jquery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<!-- jquery UI -->
+		<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<!-- jquery UI -->
+		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+		<!-- materialise link -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js">
+		<!-- materialise CSS -->
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 		<!-- link for making an api call to eventful website -->
 		<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
 		<!-- loading google maps -->
