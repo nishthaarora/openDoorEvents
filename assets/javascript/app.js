@@ -191,7 +191,7 @@ $(document).ready(function() {
                         var contentString = '<div>' + 'Event: ' + ele.eventName + '<br>' +
                             'Address: ' + ele.eventAddress + '<br>' +
                             'Date: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '<br>' +
-                            'temp: ' + ele.temp + ' F' + '</div>';
+                            'Temp: ' + ele.temp + ' F' + '</div>';
 
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
