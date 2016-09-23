@@ -9,8 +9,7 @@ var apiParameters = {
     page_size: 2,
     sort_order: "popularity"
 
-}; <<
-<< << < HEAD
+};
 var p1, p2, p0, temp;
 
 // Initialize Firebase
@@ -255,7 +254,56 @@ $(document).ready(function() {
 
     });
 
-    // Creating ImageTags dinamically
+
+
+//on entering username get the location/city and store them in an array
+$("#userName").change(function() {
+    userName = $("#userName").val();
+    usersRef = database.ref().child('users/' + userName + '/locations');
+
+    usersRef.once("value", function(snapshot) {
+
+        var location = snapshot.val();
+        console.log(location);
+        for (var key in location) {
+            cityArray.push(location[key].cityName);
+            console.log("cityName:" + location[key].cityName);
+        }
+        console.log("cityArray" + cityArray);
+
+    });
+
+});
+
+$("#city").autocomplete({
+    source: cityArray
+});
+
+function storeInFirebase() {
+    userName = $("#userName").val();
+    cityName = $("#city").val();
+    category = $("#category").val();
+    state = $("#state").val();
+
+    console.log("userName" + userName);
+    console.log("cityName" + cityName);
+    console.log("category" + category);
+    console.log("state" + state);
+    usersRef = database.ref().child('users/' + userName);
+
+
+    usersRef.child('locations').push({
+        cityName: cityName,
+        state: state,
+        category: category
+    });
+
+    console.log("push done");
+}
+
+// HTML CSS changes
+
+  // Creating ImageTags dinamically
 
     var random = Math.floor(Math.random() * 8);
 
@@ -312,47 +360,6 @@ $(document).ready(function() {
 
 });
 
-//on entering username get the location/city and store them in an array
-$("#userName").change(function() {
-    userName = $("#userName").val();
-    usersRef = database.ref().child('users/' + userName + '/locations');
-
-    usersRef.once("value", function(snapshot) {
-
-        var location = snapshot.val();
-        console.log(location);
-        for (var key in location) {
-            cityArray.push(location[key].cityName);
-            console.log("cityName:" + location[key].cityName);
-        }
-        console.log("cityArray" + cityArray);
-
-    });
-
-});
-
-$("#city").autocomplete({
-    source: cityArray
-});
-
-function storeInFirebase() {
-    userName = $("#userName").val();
-    cityName = $("#city").val();
-    category = $("#category").val();
-    state = $("#state").val();
-
-    console.log("userName" + userName);
-    console.log("cityName" + cityName);
-    console.log("category" + category);
-    console.log("state" + state);
-    usersRef = database.ref().child('users/' + userName);
 
 
-    usersRef.child('locations').push({
-        cityName: cityName,
-        state: state,
-        category: category
-    });
 
-    console.log("push done");
-}
