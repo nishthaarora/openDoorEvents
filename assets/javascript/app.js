@@ -190,7 +190,7 @@ $(document).ready(function() {
 
                         var contentString = '<div>' + 'Event: ' + ele.eventName + '<br>' +
                             'Address: ' + ele.eventAddress + '<br>' +
-                            'Date: ' + moment(ele.eventDate).format('MM DD YYYY, hh:mm a') + '<br>' +
+                            'Date: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '<br>' +
                             'temp: ' + ele.temp + ' F' + '</div>';
 
                         var infowindow = new google.maps.InfoWindow({
@@ -266,7 +266,7 @@ $(document).ready(function() {
             $('#tableBody').append('<tr>' +
                 '<td>' + ele.eventName + '</td>' +
                 '<td>' + ele.eventAddress + '</td>' +
-                '<td>' + ele.eventDate + '</td>' +
+                '<td>' +  moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a')+ '</td>' +
                 '<td></td>' +
                 '</tr>');        });
     }
