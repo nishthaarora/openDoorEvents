@@ -234,6 +234,7 @@ $(document).ready(function() {
 
     // This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
+<<<<<<< HEAD
         console.log("weather reasponse",response);
         tempForcastArr=[];
         response.list.forEach(function(ele){
@@ -254,6 +255,10 @@ $(document).ready(function() {
         }else{
         return eventTempObj[0].temp;
         }
+=======
+        console.log("weather",response);
+        temp = response.main.temp;
+>>>>>>> master
 
     }
 
@@ -294,8 +299,12 @@ $("#userName").change(function() {
         var location = snapshot.val();
         console.log(location);
         for (var key in location) {
-            cityArray.push(location[key].cityName);
-            console.log("cityName:" + location[key].cityName);
+        	 //removes duplicate citynames
+             if(cityArray.indexOf(location[key].cityName) === -1) {
+	                cityArray.push(location[key].cityName);
+	                console.log("cityName:" + location[key].cityName);
+            }
+
         }
         console.log("cityArray" + cityArray);
 
@@ -308,12 +317,11 @@ $("#city").autocomplete({
 });
 
 function storeInFirebase() {
-    userName = $("#userName").val();
     cityName = $("#city").val();
     category = $("#category").val();
     state = $("#state").val();
 
-    console.log("userName" + userName);
+    console.log("userName2" + userName);
     console.log("cityName" + cityName);
     console.log("category" + category);
     console.log("state" + state);
@@ -387,6 +395,11 @@ function storeInFirebase() {
 
 
 });
+//getting username
+$("#enterWebsite").on("click",function(){
+         userName = $("#userName").val();
+         console.log("userName1"+userName);
+         });
 
 
 
