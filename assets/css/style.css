@@ -54,12 +54,17 @@ body
 
 /*front page container design*/
 
-img.randomImages.col.m3.s1 {
+/*img.randomImages.col.m3.s1 {
 padding:1px;
 height:200px;
 border:3px solid white;
 box-shadow: 20px;
+}*/
+
+.imageRow {
+	background-size: cover;
 }
+
 
 /*end of front page container design*/
 
@@ -121,7 +126,7 @@ img.eventsNearMe{
 }
 
 .mainPage {
-	/*display:none;*/
+	display:none;
 }
 #map, #tableHeading, #tableBody, .eventDisplayTabs {
 	display:none;

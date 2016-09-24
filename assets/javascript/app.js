@@ -34,56 +34,65 @@ var cityArray = [];
 $(document).ready(function() {
 
 
-    // function geoTest() {
+    p = geoTest();
+    p.then(eventsNearMe, function(err) {
+        console.log(err);
+    });
 
-    //     if (google.loader.ClientLocation) {
+    function geoTest() {
+        return new Promise(function(resolve, reject) {
 
-    //         var latitude = google.loader.ClientLocation.latitude;
-    //         // console.log(latitude);
-    //         var longitude = google.loader.ClientLocation.longitude;
-    //         // console.log(longitude)
-    //         var currentLocation = latitude + "," + longitude;
-    //         console.log(currentLocation);
-    //     }
-    //     return currentLocation
-    // }
+            navigator.geolocation.getCurrentPosition(function(position) {
 
-    // function eventsNearMe() {
-
-    // var coords = geoTest();
-
-    // apiParameters.location = coords;
-
-    // apiParameters.date = moment().format('DD-MM-YYYY');
-    // apiParameters.within = 100;
-
-    // getEvents("/events/search", apiParameters)
-    //     .then ( function( ele ) {
-
-    //       var events = ele.events.event;
-
-    //       events.forEach( function ( event ) {
-    //         var image = event.image.medium.url;
-    //         var title = event.title;
-    //             var titleRow = $('<div class="row imageTitleRow col m3">');
-    //            var titleDiv = $('<div class="imageTitle">' + title + '</div>')
-
-    //            titleRow.append(titleDiv);
-
-    //            var displayImage = $('<img class="eventsNearMe">');
-    //            displayImage.attr('src', image);
-    //            titleRow.append(displayImage);
-
-    //         $('.mainPage').append(titleRow);
+                if (position) {
+                    resolve(position);
+                } else {
+                    reject("error");
+                }
+            });
+        });
 
 
-    //       });
+    }
+
+    geoTest();
 
 
-    // });
+    function eventsNearMe(currentLocation) {
 
-    // }
-    // eventsNearMe();
+        var coords = currentLocation.coords.latitude + "," + currentLocation.coords.longitude;
+        console.log(coords);
+        apiParameters.location = coords;
+
+        apiParameters.date = moment().format('DD-MM-YYYY');
+        apiParameters.within = 100;
+
+        getEvents("/events/search", apiParameters)
+            .then(function(ele) {
+
+                var events = ele.events.event;
+
+                events.forEach(function(event) {
+                    var image = event.image.medium.url;
+                    var title = event.title;
+                    var titleRow = $('<div class="row imageTitleRow col m3">');
+                    var titleDiv = $('<div class="imageTitle">' + title + '</div>')
+
+                    titleRow.append(titleDiv);
+
+                    var displayImage = $('<img class="eventsNearMe">');
+                    displayImage.attr('src', image);
+                    titleRow.append(displayImage);
+
+                    $('.mainPage').append(titleRow);
+
+
+                });
+
+
+            });
+
+    }
 
 
 
@@ -374,92 +383,93 @@ $(document).ready(function() {
             console.log("cityArray" + cityArray);
 
         });
-  });
-
-        $("#city").autocomplete({
-            source: cityArray
-        });
-
-        function storeInFirebase() {
-            cityName = $("#city").val();
-            category = $("#category").val();
-            state = $("#state").val();
-
-            console.log("userName2" + userName);
-            console.log("cityName" + cityName);
-            console.log("category" + category);
-            console.log("state" + state);
-            usersRef = database.ref().child('users/' + userName);
-
-            usersRef.child('locations').push({
-                cityName: cityName,
-                state: state,
-                category: category
-            });
-
-            console.log("push done");
-        }
-
-        // Creating ImageTags dinamically
-
-        function getImages() {
-            var imageDiv = $('<div class="row imageRow">');
-            $('.frontPage').append(imageDiv);
-
-            for (var i = 0; i < 8; i++) {
-                var image = $('<img>');
-                image.addClass('randomImages col m3 s1');
-                image.attr('src', 'assets/images/' + Math.floor(Math.random() * 22) + '.jpg' || '.jpeg');
-
-                $('.imageRow').append(image);
-            }
-        }
-
-
-        /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
-        then he will go to the mainPage currently he is on frontPage
-        */
-
-        $('#enterWebsite').on('click', function() {
-
-            var name = $('#userName').val();
-            if (!name) {
-                $('.mainPage').hide();
-                // $('.userNameInput,.enterWebsite').append('Please enter your Name');
-                $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
-            } else {
-                $('.mainPage').show();
-                $('.frontPage').hide();
-
-                var nameArr = name.split(" ");
-                nameArr.forEach(function(ele) {
-                    $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
-                        ele.substring(1) + '!');
-
-                });
-            }
-        });
-
-
-        // This function is hiding carousel from the web page and displaying the map on click of submit
-
-        $('#submitButton').on('click', function() {
-            $('#map').show();
-            $('.eventDisplayTabs').show();
-            $('#tableHeading').show();
-            $('#tableBody').show();
-            $('.imageTitleRow').hide();
-
-        });
-
-
-        getImages();
-
-
-    //getting username
-    $("#enterWebsite").on("click", function() {
-        userName = $("#userName").val();
-        console.log("userName1" + userName);
     });
 
+    $("#city").autocomplete({
+        source: cityArray
+    });
+
+
+    // store in firebase
+    function storeInFirebase() {
+        cityName = $("#city").val();
+        category = $("#category").val();
+        state = $("#state").val();
+
+        console.log("userName2" + userName);
+        console.log("cityName" + cityName);
+        console.log("category" + category);
+        console.log("state" + state);
+        usersRef = database.ref().child('users/' + userName);
+
+        usersRef.child('locations').push({
+            cityName: cityName,
+            state: state,
+            category: category
+        });
+
+        console.log("push done");
+    }
+
+    // Creating ImageTags dinamically
+
+    function getImages() {
+        var imageDiv = $('<div class="row imageRow">');
+        $('.frontPage').append(imageDiv);
+
+        for (var i = 0; i < 1; i++) {
+            var image = $('<img>');
+            image.addClass('randomImages col m12 s1');
+            image.attr('src', 'assets/images/' + Math.floor(Math.random() * 22) + '.jpg' || '.jpeg');
+
+            $('.imageRow').append(image);
+        }
+    }
+    getImages();
+
+
+    /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
+    then he will go to the mainPage currently he is on frontPage
+    */
+
+    $('#enterWebsite').on('click', function() {
+
+        // userName = $('#userName').val();
+        // console.log(username);
+        if (!userName) {
+            $('.mainPage').hide();
+            // $('.userNameInput,.enterWebsite').append('Please enter your Name');
+            $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
+        } else {
+            $('.mainPage').show();
+            $('.frontPage').hide();
+
+            var nameArr = userName.split(" ");
+            nameArr.forEach(function(ele) {
+                $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
+                    ele.substring(1) + '!');
+
+            });
+        }
+    });
+
+
+    // This function is hiding carousel from the web page and displaying the map on click of submit
+
+    $('#submitButton').on('click', function() {
+        $('#map').show();
+        $('.eventDisplayTabs').show();
+        $('#tableHeading').show();
+        $('#tableBody').show();
+        $('.imageTitleRow').hide();
+
+    });
+
+
+});
+
+//getting username
+$("#enterWebsite").on("click", function() {
+    userName = $("#userName").val();
+    console.log("userName1" + userName);
 });
