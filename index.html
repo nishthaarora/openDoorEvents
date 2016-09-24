@@ -10,26 +10,27 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 		<!-- google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	</head>
 	<!-- this is the navbar of the website -->
 	<body>
+
 		<div class="row navBar">
 			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
 			<div class="userNameInput col s5">
-				<!-- <label id="nameLabel" for="userName">Enter Your Name</label> -->
-				<input id="userName" type="text" class="validate" placeholder="Full Name">
-				<button id="enterWebsite">Submit</button>
+				<input id="userName" type="text" class="validate" placeholder="Name">
+				<button id="enterWebsite">Sign In</button>
 			</div>
 		</div>
-
+		<!-- front page container which has images -->
 		<div class="container frontPage">
 		</div>
 
+		<!-- after clicking on the signin button user goes to the main page -->
 		<div class="container mainPage">
-			<!-- <h1 class="heading animated lightSpeedIn">Open Door Events</h1> -->
 			<!-- creating form for the page -->
 			<form class="userInputForm">
-				<div class="row col">
+				<div class="row col m12">
 					<!-- state -->
 					<span class="input-field col m3 col s12">
 						<input id="state" type="text"  class="validate" placeholder="state" required="required">
@@ -54,6 +55,7 @@
 				</div>
 			</form>
 			<!-- map display area -->
+			<div clss="row">
 			<div class="map-row">
 				<div class="col m12 s12 eventDisplayTabs">
 					<ul class="tabs eventTabs">
@@ -68,23 +70,27 @@
 				</div>
 			</div>
 			<!-- this is the table showing events data in a table format-->
-			<div class="col s12">
+	<!-- 	<div class="row"> -->
+
 				<!-- Table content  -->
-				<table>
+				<table class="col m6 s12">
 					<thead id="tableHeading" class="headingTable divider">
 						<tr>
 							<th data-field="id">Event Name</th>
-							<th data-field="name">Event Location</th>
-							<th data-field="price">Event Date/Time</th>
-							<th data-field="price">Event Price</th>
+							<th data-field="name">Location</th>
+							<th data-field="price">Date/Time</th>
+							<!-- <th data-field="price">Price</th> -->
 						</tr>
 					</thead>
 					<!-- table body -->
 					<tbody id="tableBody" class="bodyTable">
 					</tbody>
 				</table>
+
 			</div>
 		</div>
+
+
 		<!-- this is a CDN link to jquery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<!-- jquery UI -->
@@ -100,6 +106,9 @@
 		<!-- loading google maps -->
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
 		async defer></script>
+
+		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg" -->
+		<!-- async defer></script> -->
 		<!-- this is a CDN link to firebase -->
 		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 		<!--CDN for moment.js  -->
