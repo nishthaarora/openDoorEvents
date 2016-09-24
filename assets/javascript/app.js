@@ -34,13 +34,66 @@ var cityArray = [];
 $(document).ready(function() {
 
 
+    function geoTest() {
+
+        if (google.loader.ClientLocation) {
+
+            var latitude = google.loader.ClientLocation.latitude;
+            // console.log(latitude);
+            var longitude = google.loader.ClientLocation.longitude;
+            // console.log(longitude)
+            var currentLocation = latitude + "," + longitude;
+            console.log(currentLocation);
+        }
+        return currentLocation
+    }
+
+    function eventsNearMe() {
+
+    var coords = geoTest();
+
+    apiParameters.location = coords;
+
+    apiParameters.date = moment().format('DD-MM-YYYY');
+    apiParameters.within = 100;
+
+    getEvents("/events/search", apiParameters)
+        .then ( function( ele ) {
+          var events = ele.events.event;
+
+          events.forEach( function ( event ) {
+            var image = event.image.medium.url;
+            var title = event.title;
+                var titleRow = $('<div class="row imageTitleRow col m3">');
+               var titleDiv = $('<div class="imageTitle">' + title + '</div>')
+
+               titleRow.append(titleDiv);
+
+               var displayImage = $('<img class="eventsNearMe">');
+               displayImage.attr('src', image);
+               titleRow.append(displayImage);
+
+            $('.mainPage').append(titleRow);
+
+
+          });
+
+
+    });
+
+    }
+    eventsNearMe();
+
+
+
     $('#submitButton').on('click', getEventsAndPinn);
 
 
     // get events from eventful API and pin them on the map using Google API
     function getEventsAndPinn(event, date) {
         event.preventDefault();
-        // store user event info into firebase database
+        console.log('event1', event)
+            // store user event info into firebase database
         storeInFirebase();
 
         // capturing user inputs
@@ -86,7 +139,7 @@ $(document).ready(function() {
                 console.log(err);
             });
 
-
+}
 
         /* This is our second promise that we are making in this we are initialising our googlemaps and sending the params
         divID and map parameters which are defined in p2 promise above. divId is the id in HTML for maps and mapParamObject
@@ -118,7 +171,7 @@ $(document).ready(function() {
         through the objects of array and pushing it to our array i.e eventArr
         */
         function pushEventsToArray(data) {
-
+            console.log('array', data)
             eventArr = [];
             $('#tableBody').children().remove();
 
@@ -159,7 +212,7 @@ $(document).ready(function() {
             return new Promise(function(resolve, reject) {
 
                 EVDB.API.call(url, paramObj, function(eventData) {
-                    console.log(eventData)
+                    console.log('event', eventData)
 
                     if (eventData) {
                         resolve(eventData);
@@ -172,9 +225,9 @@ $(document).ready(function() {
         }
 
 
-        // This is the funtion where we are defining out markers and passing the values to googlemaps
+        // This is the funtion where we are defining our markers and passing the values to googlemaps
         function geocodeEvents(data) {
-
+            console.log(data);
 
 
             eventArr.forEach(function(ele) {
@@ -230,10 +283,11 @@ $(document).ready(function() {
 
         }
 
-    };
+
 
     // This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
+<<<<<<< Updated upstream
 
         console.log("weather reasponse",response);
         tempForcastArr=[];
@@ -256,6 +310,10 @@ $(document).ready(function() {
         return eventTempObj[0].temp;
         }
 
+=======
+        temp = response.main.temp;
+        console.log(response);
+>>>>>>> Stashed changes
 
     }
 
@@ -285,14 +343,23 @@ $(document).ready(function() {
     });
 
 
+    // firebase settings
+    //on entering username get the location/city and store them in an array
+    $("#userName").change(function() {
+        userName = $("#userName").val();
+        usersRef = database.ref().child('users/' + userName + '/locations');
 
-//on entering username get the location/city and store them in an array
-$("#userName").change(function() {
-    userName = $("#userName").val();
-    usersRef = database.ref().child('users/' + userName + '/locations');
+        usersRef.once("value", function(snapshot) {
 
-    usersRef.once("value", function(snapshot) {
+            var location = snapshot.val();
+            console.log(location);
+            for (var key in location) {
+                cityArray.push(location[key].cityName);
+                console.log("cityName:" + location[key].cityName);
+            }
+            console.log("cityArray" + cityArray);
 
+<<<<<<< Updated upstream
         var location = snapshot.val();
         console.log(location);
         for (var key in location) {
@@ -304,15 +371,23 @@ $("#userName").change(function() {
 
         }
         console.log("cityArray" + cityArray);
+=======
+        });
+>>>>>>> Stashed changes
 
     });
 
-});
+    $("#city").autocomplete({
+        source: cityArray
+    });
 
-$("#city").autocomplete({
-    source: cityArray
-});
+    function storeInFirebase() {
+        userName = $("#userName").val();
+        cityName = $("#city").val();
+        category = $("#category").val();
+        state = $("#state").val();
 
+<<<<<<< Updated upstream
 function storeInFirebase() {
     cityName = $("#city").val();
     category = $("#category").val();
@@ -323,71 +398,81 @@ function storeInFirebase() {
     console.log("category" + category);
     console.log("state" + state);
     usersRef = database.ref().child('users/' + userName);
+=======
+        console.log("userName" + userName);
+        console.log("cityName" + cityName);
+        console.log("category" + category);
+        console.log("state" + state);
+        usersRef = database.ref().child('users/' + userName);
 
+>>>>>>> Stashed changes
 
-    usersRef.child('locations').push({
-        cityName: cityName,
-        state: state,
-        category: category
-    });
+        usersRef.child('locations').push({
+            cityName: cityName,
+            state: state,
+            category: category
+        });
 
-    console.log("push done");
-}
-
-// HTML CSS changes
-
-  // Creating ImageTags dinamically
-
-    var random = Math.floor(Math.random() * 8);
-
-    function getImages() {
-        var imageDiv = $('<div class="row ImageRow">');
-        $('.frontPage').append(imageDiv);
-
-        for (var i = 0; i < 8; i++) {
-            var image = $('<img>');
-            image.addClass('randomImages col m3 s1');
-            image.attr('src', 'assets/images/' + i + '.jpg' || '.jpeg');
-            $('.ImageRow').append(image);
-
-        }
-
-
+        console.log("push done");
     }
 
-    /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
-    then he will go to the mainPage currently he is on frontPage
-    */
+    // Creating ImageTags dinamically
 
-    $('#enterWebsite').on('click', function() {
+    // function getImages() {
+    //     var imageDiv = $('<div class="row imageRow">');
+    //     $('.frontPage').append(imageDiv);
 
-        var name = $('#userName').val();
-        console.log(name);
-        if (!name) {
-            $('.mainPage').hide();
-            // $('.userNameInput,.enterWebsite').append('Please enter your Name');
-            $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
-        } else {
-            $('.mainPage').show();
-            $('.frontPage').hide();
+    //     for (var i = 0; i < 8; i++) {
+    //         var image = $('<img>');
+    //         image.addClass('randomImages col m3 s1');
+    //         image.attr('src', 'assets/images/' + Math.floor(Math.random() * 22) + '.jpg' || '.jpeg');
 
-            var nameArr = name.split(" ");
-            nameArr.forEach(function(ele) {
-                $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
-                    ele.substring(1) + '!');
-            });
-        }
-    });
+    //         $('.imageRow').append(image);
+
+    //     }
+
+
+    // }
+
+
+    // /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
+    // then he will go to the mainPage currently he is on frontPage
+    // */
+
+    // $('#enterWebsite').on('click', function() {
+
+    //     var name = $('#userName').val();
+    //     if (!name) {
+    //         $('.mainPage').hide();
+    //         // $('.userNameInput,.enterWebsite').append('Please enter your Name');
+    //         $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
+    //     } else {
+    //         $('.mainPage').show();
+    //         $('.frontPage').hide();
+
+    //         var nameArr = name.split(" ");
+    //         nameArr.forEach(function(ele) {
+    //             $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
+    //                 ele.substring(1) + '!');
+
+    //         });
+    //     }
+    // });
 
 
     // This function is hiding carousel from the web page and displaying the map on click of submit
 
     $('#submitButton').on('click', function() {
+        $('#map').show();
         $('.eventDisplayTabs').show();
+        $('#tableHeading').show();
+        $('#tableBody').show();
+        $('.imageTitleRow').hide();
 
     })
 
 
+<<<<<<< Updated upstream
     getImages();
 
 
@@ -399,5 +484,9 @@ $("#enterWebsite").on("click",function(){
          });
 
 
+=======
+    // getImages();
+>>>>>>> Stashed changes
 
 
+});
