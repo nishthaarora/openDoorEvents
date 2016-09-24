@@ -33,12 +33,15 @@ var cityArray = [];
 
 $(document).ready(function() {
 
-
+    /* this is a promise for the below 2 functions, geoTest which is taking user cordinated and eventsNearMe which is making an API call
+    to the eventful api and returning the events near those cordinated
+    */
     p = geoTest();
     p.then(eventsNearMe, function(err) {
         console.log(err);
     });
 
+    // taking user cordinated lat and long to show the events near that location.
     function geoTest() {
         return new Promise(function(resolve, reject) {
 
@@ -58,10 +61,11 @@ $(document).ready(function() {
     geoTest();
 
 
+    // This function is taking user cordinates from the above function and giving all the events near that location
+
     function eventsNearMe(currentLocation) {
 
         var coords = currentLocation.coords.latitude + "," + currentLocation.coords.longitude;
-        console.log(coords);
         apiParameters.location = coords;
 
         apiParameters.date = moment().format('DD-MM-YYYY');
@@ -73,19 +77,29 @@ $(document).ready(function() {
                 var events = ele.events.event;
 
                 events.forEach(function(event) {
+                    console.log(event);
                     var image = event.image.medium.url;
                     var title = event.title;
-                    var titleRow = $('<div class="row imageTitleRow col m3">');
-                    var titleDiv = $('<div class="imageTitle">' + title + '</div>')
+                    var url = event.url;
 
-                    titleRow.append(titleDiv);
+                    var eventURL = $('<a class="infoURL"> Click for more details</a>');
+                    eventURL.attr('href', url);
 
-                    var displayImage = $('<img class="eventsNearMe">');
-                    displayImage.attr('src', image);
-                    titleRow.append(displayImage);
+                    var detail = '<div class="eventDescription">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
+                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + '</div>';
 
-                    $('.mainPage').append(titleRow);
+                    var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
+                    var imageDiv = $('<img class=eventNearMeImage>');
+                    imageDiv.attr('src', image);
+
+                    var eventDetailsDiv = $('<div class="eventDetails col m6">');
+                    eventDetailsDiv.append(titleDiv);
+                    eventDetailsDiv.append(imageDiv);
+                    eventDetailsDiv.append(detail);
+                    eventDetailsDiv.append(eventURL);
+
+                    $('.eventsRow').append(eventDetailsDiv);
 
                 });
 
@@ -95,6 +109,7 @@ $(document).ready(function() {
     }
 
 
+    // on the click of the submit button which is displayed on the front page, rest of the things are happenings
 
     $('#submitButton').on('click', getEventsAndPinn);
 
@@ -132,7 +147,7 @@ $(document).ready(function() {
         p0 = getWeather(city + ',' + state + ',usa');
         p1 = getEvents("/events/search", apiParameters);
         p2 = initialiseGoogleMap(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 8,
             center: {
                 lat: -34.397,
                 lng: 150.644
@@ -425,8 +440,6 @@ $(document).ready(function() {
 
     $('#enterWebsite').on('click', function() {
 
-        // userName = $('#userName').val();
-        // console.log(username);
         if (!userName) {
             $('.mainPage').hide();
             // $('.userNameInput,.enterWebsite').append('Please enter your Name');
@@ -450,9 +463,8 @@ $(document).ready(function() {
     $('#submitButton').on('click', function() {
         $('#map').show();
         $('.eventDisplayTabs').show();
-        $('#tableHeading').show();
-        $('#tableBody').show();
-        $('.imageTitleRow').hide();
+        // $('#tableHeading').show();
+        // $('#tableBody').show();
 
     });
 
@@ -464,3 +476,4 @@ $("#enterWebsite").on("click", function() {
     userName = $("#userName").val();
     console.log("userName1" + userName);
 });
+
