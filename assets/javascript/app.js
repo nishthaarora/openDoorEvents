@@ -10,7 +10,7 @@ var apiParameters = {
     sort_order: "popularity"
 
 };
-var p1, p2, p0, temp;
+var p1, p2, p0, temp,tempForcastArr;
 
 // Initialize Firebase
 var config = {
@@ -78,6 +78,8 @@ $(document).ready(function() {
         p0.then(getTempFromWeatherObj, function(err) {
             console.log(err);
         });
+
+
         // sequence of promises
         p1.then(pushEventsToArray)
             .then(geocodeEvents, function(err) {
@@ -121,6 +123,12 @@ $(document).ready(function() {
             $('#tableBody').children().remove();
 
             data.events.event.forEach(function(ele) {
+
+                var eventDate=moment(ele.start_time,"YYYY-MM-DD hh:mm:ss").format('MMDDYYYY');
+                console.log("EVENT DATE",eventDate);
+                var eventTemp=getTempForEvent(eventDate);
+                console.log("TEMP",eventTemp);
+
                 eventArr.push({
                     eventName: ele.title,
                     eventDate: ele.start_time,
@@ -129,7 +137,8 @@ $(document).ready(function() {
                     longitude: ele.longitude,
                     eventAddress: ele.venue_address + ', ' + ele.postal_code,
                     city: ele.city_name,
-                    state: ele.region_name
+                    state: ele.region_name,
+                    temp:eventTemp
 
                 });
             });
@@ -181,8 +190,8 @@ $(document).ready(function() {
 
                         var contentString = '<div>' + 'Event: ' + ele.eventName + '<br>' +
                             'Address: ' + ele.eventAddress + '<br>' +
-                            'Date: ' + moment(ele.eventDate).format('MM DD YYYY, hh:mm a') + '<br>' +
-                            'temp: ' + temp + ' F' + '</div>';
+                            'Date: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '<br>' +
+                            'Temp: ' + ele.temp + ' F' + '</div>';
 
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
@@ -206,13 +215,14 @@ $(document).ready(function() {
         }
 
         // This ia function to get the weather from the third API i.e weather
-        function getWeather(zipCode) {
+        function getWeather(place) {
 
-            // This is our API Key
+
             var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
-            // Here we are building the URL we need to query the database
-            var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + zipCode + "&units=imperial&appid=" + '166a433c57516f51dfab1f7edaed8413';
+           
+            // This is our API Key
+            queryURL= "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + place +"&units=Imperial" +'&cnt=16'+"&appid=" + '166a433c57516f51dfab1f7edaed8413';
+            
             return $.ajax({
                 url: queryURL,
                 method: 'GET'
@@ -224,8 +234,28 @@ $(document).ready(function() {
 
     // This function is to get the weather from the weather object which we are receiving in the above function
     function getTempFromWeatherObj(response) {
-        console.log("weather",response);
-        temp = response.main.temp;
+
+        console.log("weather reasponse",response);
+        tempForcastArr=[];
+        response.list.forEach(function(ele){
+        tempForcastArr.push({date: ele.dt,temp:ele.temp.day});
+
+        });
+     
+    }
+
+    function getTempForEvent(eventDt){
+
+        var eventTempObj = tempForcastArr.filter(function( obj ) {
+            return moment.unix(obj.date).format("MMDDYYYY") === eventDt;
+        });
+
+        if(eventTempObj.length === 0){
+            return "--"
+        }else{
+        return eventTempObj[0].temp;
+        }
+
 
     }
 
@@ -236,10 +266,9 @@ $(document).ready(function() {
             $('#tableBody').append('<tr>' +
                 '<td>' + ele.eventName + '</td>' +
                 '<td>' + ele.eventAddress + '</td>' +
-                '<td>' + ele.eventDate + '</td>' +
+                '<td>' +  moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a')+ '</td>' +
                 '<td></td>' +
-                '</tr>');
-        });
+                '</tr>');        });
     }
 
 
