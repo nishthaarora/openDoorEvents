@@ -4,12 +4,10 @@ body
     height: 100%;
     margin: 0;
     padding: 0;
-    /*background-image: url(../images/background5.jpg);*/
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-color: #66ABBC;
 }
-
 
 
 /*navigation bar*/
@@ -51,37 +49,29 @@ body
 /*end of navbar styling*/
 
 
-
 /*front page container design*/
-
-/*img.randomImages.col.m3.s1 {
-padding:1px;
-height:200px;
-border:3px solid white;
-box-shadow: 20px;
-}*/
 
 .imageRow {
 	background-size: cover;
 }
-
 
 /*end of front page container design*/
 
 
 
 /*start of main page*/
-.container.mainPage {
-	/*margin: auto 50px;*/
-}
 
 .userInputForm
 {
 
-padding:20px;
 background-color: #111110;
 opacity: 0.5;
 color:white;
+
+}
+
+.row.col.m12{
+	/*margin-left: 70px;*/
 }
 
 #submitButton
@@ -91,8 +81,17 @@ color:white;
 	border-radius: 5px;
 }
 
-img.eventsNearMe{
-	width: 221px;
+img.eventNearMeImage{
+	width: 100%;
+}
+
+.eventDetails.col.m6 {
+	border: 1px solid #fff7c0;
+	padding:0;
+}
+
+.infoURL{
+	color:purple;
 }
 
 
@@ -102,17 +101,10 @@ img.eventsNearMe{
 
 }
 
-.col.s12.eventDisplayTabs {
-
-	position:absolute;
-	top: 0;
-	right:0;
-	z-index: 100;
-	width: 40%;
-    opacity: 0.5;
-    border:1px solid black;
+.eventDisplayTabs {
     background-color: #8bc34a;
     display:none;
+    font-size: 0.8em;
 }
 
 .tabs .tab a:hover {
@@ -135,11 +127,10 @@ img.eventsNearMe{
 #map
 {
     height: 380px;
-    width:50%;
 }
 
 .map-row{
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	position: relative;
 }
 

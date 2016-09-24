@@ -18,8 +18,10 @@
 		<div class="row navBar">
 			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
 			<div class="userNameInput col s5">
+
 				<input id="userName" type="text" class="validate" placeholder="Name">
 				<button id="enterWebsite">Sign In</button>
+
 			</div>
 		</div>
 		<!-- front page container which has images -->
@@ -44,7 +46,7 @@
 						<input id="category" type="text" name="category" placeholder="category">
 					</span>
 					<!-- date -->
-					<span class="input-field col m2 col s12">
+					<span class="input-field col m3 col s12">
 						<input id="date" type="date">
 					</span>
 					<!-- submit Button -->
@@ -55,22 +57,32 @@
 				</div>
 			</form>
 			<!-- map display area -->
-			<div clss="row">
-			<div class="map-row">
-				<div class="col m12 s12 eventDisplayTabs">
-					<ul class="tabs eventTabs">
-						<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
-						<li id="currentWeek" class="tab col s2 viewSwitch"><a href="#This Week">Current Week</a></li>
-						<li id="nextWeek" class="tab col s2 viewSwitch"><a class="active" href="#Next Week">Next Week</a></li>
-						<li id="future" class="tab col s2 viewSwitch"><a href="#Future">Future...</a></li>
-					</ul>
+
+			<div class="row">
+				<div class="eventsNearMe col m6">
+					<div class="row eventsRow">
+					</div>
 				</div>
-				<!-- map div -->
-				<div id="map">
+
+
+			<div class="map-row">
+				<div class="col m6">
+					<div class="eventDisplayTabs">
+						<ul class="tabs eventTabs">
+							<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
+							<li id="currentWeek" class="tab col s2 viewSwitch"><a href="#This Week">Current Week</a></li>
+							<li id="nextWeek" class="tab col s2 viewSwitch"><a class="active" href="#Next Week">Next Week</a></li>
+							<li id="future" class="tab col s2 viewSwitch"><a href="#Future">Future...</a></li>
+						</ul>
+					</div>
+					<!-- map div -->
+					<div id="map">
+					</div>
 				</div>
 			</div>
+			</div>
+
 			<!-- this is the table showing events data in a table format-->
-	<!-- 	<div class="row"> -->
 
 				<!-- Table content  -->
 				<table class="col m6 s12">
