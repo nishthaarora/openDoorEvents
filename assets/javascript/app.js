@@ -369,19 +369,6 @@ $(document).ready(function() {
             }
             console.log("cityArray" + cityArray);
 
-
-            var location = snapshot.val();
-            console.log(location);
-            for (var key in location) {
-                //removes duplicate citynames
-                if (cityArray.indexOf(location[key].cityName) === -1) {
-                    cityArray.push(location[key].cityName);
-                    console.log("cityName:" + location[key].cityName);
-                }
-
-            }
-            console.log("cityArray" + cityArray);
-
         });
     });
 
