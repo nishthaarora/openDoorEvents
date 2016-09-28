@@ -1,4 +1,4 @@
- html,
+html,
 body
 {
     height: 100%;
@@ -37,8 +37,6 @@ body
 	margin-top:32px;
 	font-weight: bolder;
 }
-
-
 
 
 /*SignIn button*/
@@ -81,13 +79,20 @@ color:white;
 	border-radius: 5px;
 }
 
+#userInputForm{
+	 border-radius: 25px;
+}
+
 img.eventNearMeImage{
 	width: 100%;
+	margin:0;
+	padding:0;
 }
 
 .eventDetails.col.m6 {
 	border: 1px solid #fff7c0;
 	padding:0;
+	
 }
 
 .infoURL{
@@ -102,14 +107,27 @@ img.eventNearMeImage{
 }
 
 .eventDisplayTabs {
-    background-color: #8bc34a;
+    background-color: transperent;
     display:none;
     font-size: 0.8em;
+}
+
+.eventDescription{
+	padding:0;
+/*	border-left:1px solid red;
+	border-right:1px solid red;
+	border-bottom:1px solid red;
+	border-top:1px solid red;*/
+	height:200px;
+	margin:0;
+	background: #FFF7C0;
+	
 }
 
 .tabs .tab a:hover {
 
 	background-color: #111110;
+
 }
 
 .tabs .tab a {
@@ -117,21 +135,45 @@ img.eventNearMeImage{
 	font-weight: bolder;
 }
 
+#submitButton:hover{
+	opacity:0.8;
+	
+}
+
+#submitButton{
+	background: transparent;
+}
+
 .mainPage {
 	display:none;
 }
+
 #map, #tableHeading, #tableBody, .eventDisplayTabs {
 	display:none;
 }
 
+ .eventDisplayTabs{
+ 	position:absolute;
+ 	top:10px;
+ 	right:0px;
+ 	background: transparent;
+ 	z-index: 1000;
+ }
 #map
 {
-    height: 380px;
+    height: 500px;
+    width:100%;
 }
 
+
+
 .map-row{
-	/*margin-top: 20px;*/
+	top: 20px;
+	right:0px;
+
+
 	position: relative;
+
 }
 
 table{
