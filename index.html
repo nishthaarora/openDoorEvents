@@ -4,34 +4,147 @@
 		<title>Open Door Events</title>
 		<meta name="viewport" content="initial-scale=1.0">
 		<meta charset="utf-8">
-		<!-- internal stylesheet -->
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-		<!-- animation stylesheet -->
+
+		
+		<!--Import Google Icon Font-->
+     	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 		<!-- google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+		<!-- materialise CSS -->
+		<link rel="stylesheet" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+		
+
+		<!-- this is a CDN link to jquery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+		<!-- loading google maps -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
+		async defer></script>
+
+
+		 <!--Import Google Icon Font-->
+     <!-- google fonts -->
+
+		<!-- internal stylesheet -->
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 	</head>
 	<!-- this is the navbar of the website -->
 	<body>
+
+
+		      	 <!-- Modal1 Trigger 
+		<nav>
+		    <div class="nav-wrapper ">
+		      <a href="#!" class="brand-logo"><i>Open Door Events</i></a>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1"><h6 >Sign in</h6></a></li>
+		        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal2"><h6 >Sign up</h6></a></li>
+		      </ul>
+		    </div>
+		 </nav>
+-->
 
 		<div class="row navBar">
 			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
 			<div class="userNameInput col s5">
 
 				<input id="userName" type="text" class="validate" placeholder="Name">
-				<button id="enterWebsite">Sign In</button>
+				<button id="enterWebsite" class="custombuttons">Sign In</button>
 
 			</div>
 		</div>
-		<!-- front page container which has images -->
+
+		<!-- 
 		<div class="frontPage">
 		</div>
 
+-->		
+		<!-- Modal Structure 
+		<div id="modal1" class="modal">
+		  <div class="modal-content">
+		    <h4>SignIn Form</h4>
+		    <form class="userInputForm" >
+				<div class="row col m12">
+					<span class="input-field col m2 col s12">
+						<input id="signInEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
+					</span>
+					<span class="input-field col m2 col s12">
+						<input id="signInPassword" type="password" class="validate" placeholder="password">
+					</span>
+					
+				</div>
+
+				<div class="modal-footer">
+						<span class="col m1">
+							<button id=signinButton 
+								class="custombuttons modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+						</span>
+				</div>
+
+			</form>
+		  </div>
+		</div>
+
+		<div id="modal2" class="modal">
+		  <div class="modal-content">
+		    <h4>SignUp Form</h4>
+		    <form class="userInputForm" >
+				<div class="row col m12">
+					
+					<span class="input-field col m2 col s12">
+						<input id="userName" type="text"  placeholder="Enter Your Name" required="required">
+					</span>
+					<span class="input-field col m2 col s12">
+						<input id="signUpEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
+					</span>
+					<span class="input-field col m2 col s12">
+						<input id="signUpPassword" type="password" class="validate" placeholder="password">
+					</span>
+					
+				
+				</div>
+
+				<div class="modal-footer">
+						<span class="col m1">
+							<button id=enterWebsite 
+							class="custombuttons modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+						</span>
+
+				</div>
+
+			</form>
+		  </div>
+		</div>
+
+-->
+
+		<div id="eventheading">
+		</div>
+
+		<!-- front page container which has images -->
+
+		<div id="frontpageId" class="row">
+			<div class="frontPage eventsRow row ">
+			</div>
+			
+					
+		</div>
+		<div>
+			<!--
+			<div id="map">
+			</div>
+-->
+		</div>
 		<!-- after clicking on the signin button user goes to the main page -->
 		<div class="container mainPage">
 			<!-- creating form for the page -->
-			<form class="userInputForm">
+			<form class="userInputForm" >
 				<div class="row col m12">
 					<!-- state -->
 					<span class="input-field col m2 col s12">
@@ -51,7 +164,7 @@
 					</span>
 					<!-- submit Button -->
 					<span class="col m1">
-						<button id=submitButton>Submit</button>
+						<button id=submitButton class="custombuttons">Submit</button>
 					</span>
 					<!-- closing user input form -->
 				</div>
@@ -102,22 +215,18 @@
 			</div>
 		</div>
 
-
-		<!-- this is a CDN link to jquery -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<!-- Reference to Materialize.min javascript sheet. -->
+	
+ 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 		<!-- jquery UI -->
 		<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<!-- jquery UI sytlesheet-->
 		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-		<!-- materialise link -->
+		<!-- materialise link 
 		<linfik rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js">
-		<!-- materialise CSS -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+		-->
 		<!-- link for making an api call to eventful website -->
 		<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
-		<!-- loading google maps -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
-		async defer></script>
 		<!-- this is a CDN link to firebase -->
 		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 		<!--CDN for moment.js  -->
