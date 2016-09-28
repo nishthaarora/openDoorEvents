@@ -37,41 +37,50 @@
 	<!-- this is the navbar of the website -->
 	<body>
 
+
+		      	 <!-- Modal1 Trigger 
 		<nav>
 		    <div class="nav-wrapper ">
 		      <a href="#!" class="brand-logo"><i>Open Door Events</i></a>
 		      <ul class="right hide-on-med-and-down">
-		      	 <!-- Modal1 Trigger -->
 		        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal1"><h6 >Sign in</h6></a></li>
 		        <li><a class="waves-effect waves-light btn modal-trigger" href="#modal2"><h6 >Sign up</h6></a></li>
 		      </ul>
 		    </div>
 		 </nav>
+-->
+
+		<div class="row navBar">
+			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
+			<div class="userNameInput col s5">
+
+				<input id="userName" type="text" class="validate" placeholder="Name">
+				<button id="enterWebsite" class="custombuttons">Sign In</button>
+
+			</div>
+		</div>
+
 		<!-- 
 		<div class="frontPage">
 		</div>
 
 -->		
-		<!-- Modal1 Structure -->
+		<!-- Modal Structure 
 		<div id="modal1" class="modal">
 		  <div class="modal-content">
 		    <h4>SignIn Form</h4>
 		    <form class="userInputForm" >
 				<div class="row col m12">
-					<!-- state -->
 					<span class="input-field col m2 col s12">
 						<input id="signInEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
 					</span>
-					<!-- city -->
 					<span class="input-field col m2 col s12">
 						<input id="signInPassword" type="password" class="validate" placeholder="password">
 					</span>
 					
-					<!-- closing user input form -->
 				</div>
 
 				<div class="modal-footer">
-					<!-- submit Button -->
 						<span class="col m1">
 							<button id=signinButton 
 								class="custombuttons modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
@@ -82,7 +91,6 @@
 		  </div>
 		</div>
 
-		<!-- Modal2 Structure -->
 		<div id="modal2" class="modal">
 		  <div class="modal-content">
 		    <h4>SignUp Form</h4>
@@ -95,16 +103,14 @@
 					<span class="input-field col m2 col s12">
 						<input id="signUpEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
 					</span>
-					<!-- city -->
 					<span class="input-field col m2 col s12">
 						<input id="signUpPassword" type="password" class="validate" placeholder="password">
 					</span>
 					
-					<!-- closing user input form -->
+				
 				</div>
 
 				<div class="modal-footer">
-					<!-- submit Button -->
 						<span class="col m1">
 							<button id=enterWebsite 
 							class="custombuttons modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
@@ -116,12 +122,14 @@
 		  </div>
 		</div>
 
+-->
+
 		<div id="eventheading">
 		</div>
 
 		<!-- front page container which has images -->
 
-		<div class="row">
+		<div id="frontpageId" class="row">
 			<div class="frontPage eventsRow row ">
 			</div>
 			

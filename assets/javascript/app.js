@@ -544,8 +544,6 @@ $(document).ready(function() {
 
     $('#enterWebsite').on('click', function() {
 
-        event.preventDefault();
-
         userName = $("#userName").val();
         if (!userName) {
        //     $('.mainPage').hide();
@@ -553,16 +551,14 @@ $(document).ready(function() {
             // $('.userNameInput,.enterWebsite').append('Please enter your Name');
             $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
     //        $('#frontpagemap').hide();
-         //   $('.frontPage').show();
-            $('.mainPage').show();
-           $('.frontPage').hide();
-            $('#map').show();
+            $('.frontPage').show();
             console.log("inside enterWebsite  userName:"+userName);
         } else {
       //      $('#frontpagemap').hide();
            $('.frontPage').hide();
             $('#map').show();
             $('.mainPage').show();
+            $("#frontpageId").hide();
             var nameArr = userName.split(" ");
             console.log("inside enterWebsite else userName:"+userName);
 
@@ -595,7 +591,6 @@ $(document).ready(function() {
     $('#submitButton').on('click', function() {
  //      $('#frontpagemap').hide();
         $('#map').show();
-        event.preventDefault();
         $('.eventDisplayTabs').show();
         // $('#tableHeading').show();
         // $('#tableBody').show();
