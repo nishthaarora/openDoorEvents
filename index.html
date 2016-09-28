@@ -10,6 +10,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 		<!-- google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+		<!-- Import Google Icon Font-->
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	</head>
 	<!-- this is the navbar of the website -->
@@ -18,12 +20,13 @@
 		<div class="row navBar">
 			<h1 class="heading animated fadeIn col s4">Open Door Events</h1>
 			<div class="userNameInput col s5">
-
-				<input id="userName" type="text" class="validate" placeholder="Name">
-				<button id="enterWebsite">Sign In</button>
-
+				<form id="loginForm">
+					<input id="userName" type="text" class="validate" placeholder="Name">
+					<button id="enterWebsite" type="submit">Sign In</button>
+				</form>
 			</div>
 		</div>
+
 		<!-- front page container which has images -->
 		<div class="frontPage">
 		</div>
@@ -33,13 +36,19 @@
 			<!-- creating form for the page -->
 			<form class="userInputForm">
 				<div class="row col m12">
-					<!-- state -->
-					<span class="input-field col m2 col s12">
-						<input id="state" type="text"  class="validate" placeholder="state" required="required">
+
+					<span class="col m1 col s12">
+						
 					</span>
+				
 					<!-- city -->
 					<span class="input-field col m2 col s12">
 						<input id="city" type="text" class="validate" placeholder="city">
+					</span>
+
+					<!-- state -->
+					<span class="input-field col m2 col s12">
+						<input id="state" type="text"  class="validate" placeholder="state" required="required">
 					</span>
 					<!-- category -->
 					<span class="input-field col m2 col s12">
@@ -49,38 +58,51 @@
 					<span class="input-field col m3 col s12">
 						<input id="date" type="date">
 					</span>
+					
 					<!-- submit Button -->
-					<span class="col m1">
-						<button id=submitButton>Submit</button>
+					<!-- <span class="col m1">
+						<button id="submitButton">Submit</button>
+					</span> -->
+
+					<span>
+
+					<p class="iconsizer"><i id="submitButton" class="small material-icons white-text icon-button icon-height-adjuster center type-it-text">search</i></p>
+
 					</span>
-					<!-- closing user input form -->
+
+					
+					
 				</div>
 			</form>
-			<!-- map display area -->
+
+			<!-- images from events display area -->
 
 			<div class="row">
-				<div class="eventsNearMe col m6">
-					<div class="row eventsRow">
-					</div>
-				</div>
-
-
-			<div class="map-row">
-				<div class="col m6">
-					<div class="eventDisplayTabs">
-						<ul class="tabs eventTabs">
-							<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
-							<li id="currentWeek" class="tab col s2 viewSwitch"><a href="#This Week">Current Week</a></li>
-							<li id="nextWeek" class="tab col s2 viewSwitch"><a class="active" href="#Next Week">Next Week</a></li>
-							<li id="future" class="tab col s2 viewSwitch"><a href="#Future">Future...</a></li>
-						</ul>
-					</div>
-					<!-- map div -->
-					<div id="map">
+				<div class="eventsNearMe col m12">
+					<div id="imgDiv" class="row eventsRow">
 					</div>
 				</div>
 			</div>
+
+
+			
+			<div class="row map-row">
+				<div id="tabDiv" class="eventDisplayTabs">
+					<ul class="tabs eventTabs">
+						<li id="today" class="tab col s2 viewSwitch"><a href="#Today">Today</a></li>
+						<li id="currentWeek" class="tab col s2 viewSwitch"><a href="#This Week">This Week</a></li>
+						<li id="nextWeek" class="tab col s2 viewSwitch"><a class="active" href="#Next Week">Next Week</a></li>
+						<li id="future" class="tab col s2 viewSwitch"><a href="#Future">Future...</a></li>
+					</ul>
+				</div>
+				<!-- map div -->
+				<div class="row">
+					<div id="map" class="col m12">
+					</div>
+				</div>
+				
 			</div>
+		</div>
 
 			<!-- this is the table showing events data in a table format-->
 
@@ -99,17 +121,21 @@
 					</tbody>
 				</table>
 
-			</div>
-		</div>
+			
+		
 
 
 		<!-- this is a CDN link to jquery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+
+		<!-- LeanModal.js for modal -->
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.leanmodal/1.1/jquery.leanmodal.min.js"></script>
 		<!-- jquery UI -->
 		<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<!-- jquery UI sytlesheet-->
 		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-		<!-- materialise link -->
+		<!-- materialise link --
 		<linfik rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js">
 		<!-- materialise CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
