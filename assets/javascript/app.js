@@ -119,7 +119,7 @@ function geocodeEvents(data) {
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
-              
+
 
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -166,23 +166,23 @@ function eventsNearMe(currentLocation) {
         .then(function(ele) {
 
            var events = ele.events.event;
-            
+
 
             events.forEach(function(event) {
-                              
+
                 var image = event.image.medium.url;
                     var title = event.title;
                     var url = event.url;
-               
+
 
                 var eventURL = $('<a class="info+URL"> Click for more details</a>');
                 eventURL.attr('href', url);
 
-               
+
                  var detail = '<div class="eventDescription">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
                     "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + "<br>"
                     + '<a href="'+url+'" target="_blank">'+ "Click for more Info"+'</a>'+'</div>';
-                    
+
 
 
                 //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
@@ -243,7 +243,7 @@ function eventsNearMe(currentLocation) {
     updateDomTable();
 
     p2 = initialiseGoogleMap(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 15,
         center: {
             lat: -34.397,
             lng: 150.644
@@ -267,7 +267,7 @@ function updateDomTable() {
             '<td></td>' +
             '</tr>');
 
-          
+
             var image = ele.img;
             var title = ele.eventName;
             var url = ele.url;
@@ -294,7 +294,7 @@ function updateDomTable() {
              //eventDetailsDiv.append(eventURL);
 
             $('#imgDiv').append(eventDetailsDiv);
-    
+
 
     });
 }
@@ -437,7 +437,7 @@ function storeInFirebase() {
     console.log("push done");
 }
 
- 
+
 
 // firbase database initializations
 firebase.initializeApp(config);
@@ -504,7 +504,7 @@ $(document).ready(function() {
     });
 
     $("#city").autocomplete({
-        source: cityArray    
+        source: cityArray
     });
 
 
@@ -523,7 +523,7 @@ $(document).ready(function() {
 
     $('#enterWebsite').on('click', function() {
         console.log("inside enterWebsite");
-        
+
     });
 
     function buttonActions(event) {
@@ -539,7 +539,7 @@ $(document).ready(function() {
             $('.frontPage').hide();
             $('#map').hide();
             $('#tabDiv').hide();
- 
+
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
                 $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
