@@ -67,6 +67,7 @@ function initialiseGoogleMap(divID, mapParamObj) {
 
 // taking user cordinated lat and long to show the events near that location.
 function geoTest() {
+    console.log("inside geotest");
     return new Promise(function(resolve, reject) {
 
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -130,6 +131,7 @@ function geocodeEvents(data) {
 // Eventful API call to get events
 
 function getEvents(url, paramObj) {
+
     console.log(url, paramObj);
 
     return new Promise(function(resolve, reject) {
@@ -151,9 +153,11 @@ function getEvents(url, paramObj) {
 // makes API call eventful API to fetch events near current geolocation
 
 function eventsNearMe(currentLocation) {
+    console.log("inside eventsNearMe")
 
     var coords = currentLocation.coords.latitude + "," + currentLocation.coords.longitude;
     apiParameters.location = coords;
+    console.log(coords);
 
     apiParameters.date = moment().format('DD-MM-YYYY');
     apiParameters.within = 100;
@@ -161,32 +165,38 @@ function eventsNearMe(currentLocation) {
     getEvents("/events/search", apiParameters)
         .then(function(ele) {
 
-            var events = ele.events.event;
+           var events = ele.events.event;
+            
 
             events.forEach(function(event) {
-                // console.log(event);
-                // var image = event.image.medium.url;
-                // var title = event.title;
-                // var url = event.url;
+                              
+                var image = event.image.medium.url;
+                    var title = event.title;
+                    var url = event.url;
+               
 
-                // var eventURL = $('<a class="infoURL"> Click for more details</a>');
-                // eventURL.attr('href', url);
+                var eventURL = $('<a class="info+URL"> Click for more details</a>');
+                eventURL.attr('href', url);
 
-                // var detail = '<div class="eventDescription">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
-                // "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + '</div>';
+               
+                 var detail = '<div class="eventDescription">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
+                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + "<br>"
+                    + '<a href="'+url+'" target="_blank">'+ "Click for more Info"+'</a>'+'</div>';
+                    
 
-                // var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
-                // var imageDiv = $('<img class=eventNearMeImage>');
-                // imageDiv.attr('src', image);
+                //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
-                // var eventDetailsDiv = $('<div class="eventDetails col m6">');
-                // eventDetailsDiv.append(titleDiv);
-                // eventDetailsDiv.append(imageDiv);
-                // eventDetailsDiv.append(detail);
-                // eventDetailsDiv.append(eventURL);
+                var imageDiv = $('<img class=eventNearMeImage>');
+                imageDiv.attr('src', image);
 
-                // $('.eventsRow').append(eventDetailsDiv);
+                var eventDetailsDiv = $('<div class="eventDetails col m3">');
+                //eventDetailsDiv.append(titleDiv);                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + '</div>';
+                eventDetailsDiv.append(imageDiv);
+                eventDetailsDiv.append(detail);
+                //eventDetailsDiv.append(eventURL);
+
+                $('#frontImgDiv').append(eventDetailsDiv);
 
             });
 
@@ -281,7 +291,7 @@ function updateDomTable() {
             //eventDetailsDiv.append(titleDiv);
             eventDetailsDiv.append(imageDiv);
             eventDetailsDiv.append(detail);
-           // eventDetailsDiv.append(eventURL);
+             //eventDetailsDiv.append(eventURL);
 
             $('#imgDiv').append(eventDetailsDiv);
     
@@ -439,6 +449,7 @@ database = firebase.database();
 $(document).ready(function() {
 
     $('#userName').focus();
+    $('.modal-trigger').leanModal();
 
 
     /* this is a promise for the below 2 functions, geoTest which is taking user cordinated and eventsNearMe which is making an API call
@@ -450,7 +461,7 @@ $(document).ready(function() {
         console.log(err);
     });
 
-    geoTest();
+   // geoTest();
 
     // on the click of the submit button which is displayed on the front page, rest of the things are happenings
     $('#submitButton').on('click', getEventsAndPinn);
@@ -493,12 +504,12 @@ $(document).ready(function() {
     });
 
     $("#city").autocomplete({
-        source: cityArray
+        source: cityArray    
     });
 
 
 
-    getImages();
+   // getImages();
 
 
     /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
@@ -506,6 +517,17 @@ $(document).ready(function() {
     */
 
     $('#loginForm').on('submit', function(event) {
+        console.log("inside loginForm");
+        buttonActions(event);
+    });
+
+    $('#enterWebsite').on('click', function() {
+        console.log("inside enterWebsite");
+        
+    });
+
+    function buttonActions(event) {
+
         event.preventDefault();
          userName = $('#userName').val().trim();
         if (!userName) {
@@ -526,7 +548,8 @@ $(document).ready(function() {
             });
             $('#city').focus();
         }
-    });
+
+    }
 
 });
 
