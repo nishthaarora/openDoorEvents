@@ -38,6 +38,16 @@ body
 	font-weight: bolder;
 }
 
+.eventNearMeImage
+{
+	border-radius:138px;
+	width:150px;
+}
+
+img.eventNearMeImage
+{
+	width:150px;
+}
 
 /*SignIn button*/
 #enterWebsite{
@@ -61,10 +71,9 @@ body
 
 .userInputForm
 {
-
-background-color: #111110;
-opacity: 0.5;
-color:white;
+	background-color: #111110;
+	opacity: 0.5;
+	color:white;
 
 }
 
