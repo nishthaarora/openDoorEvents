@@ -17,7 +17,8 @@ var p1, p2, p0, pUser;
 
 // To store temperature
 var temp, tempForcastArr;
-// Parameter object to be passed to eventful API for making an api call
+
+// Parameters to be passed to eventful API for making an api call
 var apiParameters = {
     app_key: "3sqmmtWF3swnsGxH",
     page_size: 4,
@@ -34,13 +35,14 @@ var config = {
     messagingSenderId: "1058292953682"
 };
 
+// storing array's in firebse to autocomplete user inputs
 categoryArray = ['music', 'family', 'comedy', 'concerts', 'books', 'business', 'art', 'crafts'];
 
+// state array for firebase
 stateArray = ['tx', 'wa', 'ca', 'il', 'ny'];
-// functions
 
 
-// Google API call to initialize google map
+// Google API call to initialize google map. divID is the DOM elements where we are displaying map and mapParamObj are mained below, in promises.
 
 function initialiseGoogleMap(divID, mapParamObj) {
 
@@ -63,7 +65,6 @@ function initialiseGoogleMap(divID, mapParamObj) {
 
 // taking user cordinated lat and long to show the events near that location.
 function geoTest() {
-    console.log("inside geotest");
     return new Promise(function(resolve, reject) {
 
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -80,7 +81,6 @@ function geoTest() {
 // This function makees a call to google maps API, after events are fetched from eventful API
 
 function geocodeEvents(data) {
-    console.log(data);
     $('#map').show();
     $('#tabDiv').show();
 
@@ -127,8 +127,6 @@ function getEvents(url, paramObj) {
     return new Promise(function(resolve, reject) {
 
         EVDB.API.call(url, paramObj, function(eventData) {
-            console.log('event', eventData)
-
             if (eventData) {
                 resolve(eventData);
             } else reject("error");
@@ -140,12 +138,9 @@ function getEvents(url, paramObj) {
 // makes API call eventful API to fetch events near current geolocation
 
 function eventsNearMe(currentLocation) {
-    console.log("inside eventsNearMe")
 
     var coords = currentLocation.coords.latitude + "," + currentLocation.coords.longitude;
     apiParameters.location = coords;
-    // console.log(coords);
-
     apiParameters.date = moment().format('DD-MM-YYYY');
     apiParameters.within = 100;
 
@@ -179,17 +174,13 @@ function eventsNearMe(currentLocation) {
 // This function gets called after events are fetched from Eventful API
 
 function pushEventsToArray(data) {
-    console.log('array', data)
     eventArr = [];
     $('#tableBody').children().remove();
-    console.log("Event Response", data);
 
     data.events.event.forEach(function(ele) {
 
         var eventDate = moment(ele.start_time, "YYYY-MM-DD hh:mm:ss").format('MMDDYYYY');
-        console.log("EVENT DATE", eventDate);
         var eventTemp = getTempForEvent(eventDate);
-        console.log("TEMP", eventTemp);
 
         eventArr.push({
             eventName: ele.title,
@@ -217,7 +208,7 @@ function pushEventsToArray(data) {
             lng: 150.644
         }
     });
-    // p2 is the second promise which is initialising my google maps.
+    // p2 is the second promise which is initialising google maps.
     return p2;
 }
 
@@ -282,7 +273,6 @@ function getWeather(place) {
 // This function is to get the weather from the weather object which we are receiving in the above function
 function getTempFromWeatherObj(response) {
 
-    console.log("weather reasponse", response);
     tempForcastArr = [];
     response.list.forEach(function(ele) {
         tempForcastArr.push({
@@ -369,10 +359,6 @@ function storeInFirebase() {
     category = $("#category").val();
     state = $("#state").val();
 
-    console.log("userName2" + userName);
-    console.log("cityName" + cityName);
-    console.log("category" + category);
-    console.log("state" + state);
     usersRef = database.ref().child('users/' + userName);
 
     usersRef.child('locations').push({
@@ -380,8 +366,6 @@ function storeInFirebase() {
         state: state,
         category: category
     });
-
-    console.log("push done");
 }
 
 
@@ -403,20 +387,11 @@ $(document).ready(function() {
         const email = $('#userEmail').val().trim();
         const pwd = $('#password').val().trim();
         const auth = firebase.auth();
-        console.log(email, pwd);
         const pUser = auth.signInWithEmailAndPassword(email, pwd);
         pUser.then(function(user) {
 
             $('#login-page').closeModal();
-            // database.ref().once('value', function(snapshot) {
-            //     var cities = snapshot.val();
-            //     for (var key in cities) {
-            //         console.log(cities[key].city);
-            //         cityArray.push(cities[key].city);
-            //     }
-            //     console.log(cities);
-            // handle read data.
-            // });
+
         }, function(err) {
             console.log(err);
         });
@@ -431,13 +406,7 @@ $(document).ready(function() {
         const pUser = auth.createUserWithEmailAndPassword(email, pwd);
         pUser.then(function(user) {
             $('#login-page').closeModal();
-            //     database.ref().once('value', function(snapshot) {
-            //         var cities = snapshot.val();
-            //         for (var key in cities) {
-            //             console.log(cities[key].city);
-            //             cityArray.push(cities[key].city);
-            //         }
-            // handle read data.
+
         });
         // buttonActions(event);
         pUser.catch(e => console.log(e));
@@ -474,7 +443,6 @@ $(document).ready(function() {
     // on the click of the submit button which is displayed on the front page, rest of the things are happenings
     $('#submitButton').on('click', getEventsAndPinn);
 
-
     // this function is enabling the functionality of the tabs: this week, today etc
     $(document).on('click', '.view-switch', function(event) {
         event.preventDefault();
@@ -492,54 +460,25 @@ $(document).ready(function() {
         usersRef.once("value", function(snapshot) {
 
             var location = snapshot.val();
-            console.log(location);
             for (var key in location) {
                 //removes duplicate citynames
                 if (cityArray.indexOf(location[key].cityName) === -1) {
                     cityArray.push(location[key].cityName);
-                    console.log("cityName:" + location[key].cityName);
                 }
-
             }
-            console.log("cityArray" + cityArray);
-
         });
     });
 
-
-    /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
-    then he will go to the mainPage currently he is on frontPage
-    */
-
-    $('#loginForm').on('submit', function(event) {
-        console.log("inside loginForm");
-
-    });
-
-    $('#enterWebsite').on('click', function() {
-        console.log("inside enterWebsite");
-
-    });
-
-    function buttonActions(event) {
-
-        event.preventDefault();
+    // This function will display username on the page
+    $('#signIn').on('click', function() {
         userName = $('#userName').val().trim();
-        if (!userName) {
-            //     $('.main-page').hide();
-            //     $('.user-name-input,.enter-website').attr('placeholder', 'Please enter your Name');
-        } else {
 
-
-            var nameArr = userName.split(" ");
+        var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
                 $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
                     ele.substring(1) + ' !');
+         })
+    })
 
-            });
-            $('#city').focus();
-        }
-
-    }
 
 });
