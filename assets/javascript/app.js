@@ -435,12 +435,7 @@ $(document).ready(function() {
             })
 
         });
-        // buttonActions(event);
-        pUser.catch(e => console.log(e));
     });
-
-
-    // });
 
     $('#signOut').click(function(event) {
         firebase.auth().signOut();
