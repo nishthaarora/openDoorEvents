@@ -437,7 +437,7 @@ function storeInFirebase() {
     // });
 
     database.ref().push({
-        city: $('#city').val().trim()  
+        city: $('#city').val().trim()
     });
 
     console.log("push done");
@@ -454,7 +454,7 @@ database = firebase.database();
 // this is the main function
 $(document).ready(function() {
 
-   
+
     $('#login-page').openModal({
       dismissible: false
     });
@@ -471,7 +471,7 @@ $(document).ready(function() {
         console.log(email,pwd);
         const pUser = auth.signInWithEmailAndPassword(email,pwd);
         pUser.then(function(user){
-            
+
             //uid = user.uid;
             //console.log("USER",uid);
             $('#login-page').closeModal();
@@ -486,10 +486,10 @@ $(document).ready(function() {
             });
             //$(location).attr('href', '#/index.html');
         },function(err){
-        console.log(err);   
+        console.log(err);
         });
 
-        
+
 
 
     });
@@ -632,14 +632,14 @@ $(document).ready(function() {
         //     $('.main-page').hide();
         //     $('.user-name-input,.enter-website').attr('placeholder', 'Please enter your Name');
         } else {
-           
+
             // $('.main-page').show();
             // $('.front-page').hide();
             // $('#loginForm').hide();
             // $('#map').hide();
             // $('#tabDiv').hide();
             // $('.user-input-form').show();
- 
+
 
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
