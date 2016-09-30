@@ -414,13 +414,6 @@ $(document).ready(function() {
         const pwd = $('#password').val().trim();
         const auth = firebase.auth();
         const pUser = auth.createUserWithEmailAndPassword(email, pwd);
-        var pwdArr = pwd.split('');
-        pwdArr.length >= 6;
-        if (pwdArr.length < 6) {
-            var pwdDiv = $('<div>');
-            pwdDiv.text('Password should be atleast 6 digits');
-            $('.pwd').after(pwdDiv);
-        }
 
         pUser.then(function(user) {
             $('#login-page').closeModal();
@@ -435,6 +428,12 @@ $(document).ready(function() {
             })
 
         });
+        pUser.catch(function(error) {
+            var pwdDiv = $('<div>');
+            pwdDiv.text(error.message);
+            $('.errorMessage').html(pwdDiv);
+        })
+
     });
 
     $('#signOut').click(function(event) {
