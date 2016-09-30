@@ -6,40 +6,37 @@ var userName;
 var cityName;
 var usersRef;
 var database;
-
-
 var eventArr = [];
 var eventsArray = [];
 var cityArray = [];
 var categoryArray = [];
 var stateArray = [];
 
-// these are used to store promises
-var p1, p2, p0,pUser;
+// These are used to store promises
+var p1, p2, p0, pUser;
 
-// to store temperature
+// To store temperature
 var temp, tempForcastArr;
-// parameter object to be passed to eventful API for making an api call
+// Parameter object to be passed to eventful API for making an api call
 var apiParameters = {
     app_key: "3sqmmtWF3swnsGxH",
-    page_size:4,
+    page_size: 4,
     sort_order: "popularity"
 
 };
 
-
 // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyAjiFcMAppFW9AqRusRp7dOSQSF-vVbYlA",
     authDomain: "odeusers.firebaseapp.com",
     databaseURL: "https://odeusers.firebaseio.com",
     storageBucket: "odeusers.appspot.com",
     messagingSenderId: "788239866664"
-  };
+};
 
-categoryArray = ['music','family','comedy','concerts','books','business','art','crafts'];
+categoryArray = ['music', 'family', 'comedy', 'concerts', 'books', 'business', 'art', 'crafts'];
 
-stateArray = ['tx','wa','ca','il','ny'];
+stateArray = ['tx', 'wa', 'ca', 'il', 'ny'];
 // functions
 
 
@@ -50,19 +47,16 @@ function initialiseGoogleMap(divID, mapParamObj) {
     return new Promise(function(resolve, reject) {
 
         var map = new google.maps.Map(divID, mapParamObj);
-
         var geocoder = new google.maps.Geocoder();
 
         if (map && geocoder) {
             resolve({
                 map: map,
                 geocoder: geocoder,
-
             });
         } else {
             reject("error");
         }
-
     });
 }
 
@@ -90,13 +84,10 @@ function geocodeEvents(data) {
     $('#map').show();
     $('#tabDiv').show();
 
-
-
     eventArr.forEach(function(ele) {
 
-
         data.geocoder.geocode({
-            'address': ele.eventAddress+', '+ele.city+', '+ele.zip
+            'address': ele.eventAddress + ', ' + ele.city + ', ' + ele.zip
         }, function(results, status) {
 
             if (status === 'OK') {
@@ -106,9 +97,9 @@ function geocodeEvents(data) {
                 var contentString = '<div>' +
                     'Event: ' + ele.eventName + '<br>' +
                     'Address: ' + ele.eventAddress + '<br>' +
-                    '         ' + ele.city+', '+ ele.zip + '<br>' +
+                    '         ' + ele.city + ', ' + ele.zip + '<br>' +
                     'Date: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '<br>' +
-                    'More Info: <a href="' + ele.url + '" target="_blank">'+ele.url+'</a><br>' +
+                    'More Info: <a href="' + ele.url + '" target="_blank">' + ele.url + '</a><br>' +
                     'Temp: ' + ele.temp + ' F' + '</div>';
 
                 var infowindow = new google.maps.InfoWindow({
@@ -122,7 +113,6 @@ function geocodeEvents(data) {
                     infowindow.open(map, marker);
                 });
 
-
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -134,8 +124,6 @@ function geocodeEvents(data) {
 
 function getEvents(url, paramObj) {
 
-    console.log(url, paramObj);
-
     return new Promise(function(resolve, reject) {
 
         EVDB.API.call(url, paramObj, function(eventData) {
@@ -144,10 +132,7 @@ function getEvents(url, paramObj) {
             if (eventData) {
                 resolve(eventData);
             } else reject("error");
-
         });
-
-
     });
 }
 
@@ -159,7 +144,7 @@ function eventsNearMe(currentLocation) {
 
     var coords = currentLocation.coords.latitude + "," + currentLocation.coords.longitude;
     apiParameters.location = coords;
-    console.log(coords);
+    // console.log(coords);
 
     apiParameters.date = moment().format('DD-MM-YYYY');
     apiParameters.within = 100;
@@ -167,58 +152,39 @@ function eventsNearMe(currentLocation) {
     getEvents("/events/search", apiParameters)
         .then(function(ele) {
 
-           var events = ele.events.event;
-
+            var events = ele.events.event;
 
             events.forEach(function(event) {
 
                 var image = event.image.medium.url;
-                    var title = event.title;
-                    var url = event.url;
-
-
+                var title = event.title;
+                var url = event.url;
                 var eventURL = $('<a class="info-url"> Click for more details</a>');
                 eventURL.attr('href', url);
 
-
-                 var detail = '<div class="event-description">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
-                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + "<br>"
-                    + '<a href="'+url+'" target="_blank">'+ "Click for more Info"+'</a>'+'</div>';
-
-
-
-                //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
+                var detail = '<div class="event-description">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
+                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' + event.start_time + "<br>" + '<a href="' + url + '" target="_blank">' + "Click for more Info" + '</a>' + '</div>';
 
                 var imageDiv = $('<img class="event-near-me-image">');
                 imageDiv.attr('src', image);
-
                 var eventDetailsDiv = $('<div class="event-details col m3">');
-                //eventDetailsDiv.append(titleDiv);                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + '</div>';
                 eventDetailsDiv.append(imageDiv);
                 eventDetailsDiv.append(detail);
-                //eventDetailsDiv.append(eventURL);
-
                 $('#imgDiv').append(eventDetailsDiv);
 
             });
-
-
         });
-
 }
-
 
 // This function gets called after events are fetched from Eventful API
 
- function pushEventsToArray(data) {
+function pushEventsToArray(data) {
     console.log('array', data)
     eventArr = [];
     $('#tableBody').children().remove();
-    console.log("Event Response",data);
+    console.log("Event Response", data);
 
     data.events.event.forEach(function(ele) {
-
-
 
         var eventDate = moment(ele.start_time, "YYYY-MM-DD hh:mm:ss").format('MMDDYYYY');
         console.log("EVENT DATE", eventDate);
@@ -232,12 +198,12 @@ function eventsNearMe(currentLocation) {
             latitude: ele.latitude,
             longitude: ele.longitude,
             eventAddress: ele.venue_address,
-            zip:ele.postal_code,
+            zip: ele.postal_code,
             city: ele.city_name,
             state: ele.region_abbr,
-            url:ele.url,
+            url: ele.url,
             temp: eventTemp,
-            img:ele.image.medium.url
+            img: ele.image.medium.url
 
         });
     });
@@ -255,8 +221,6 @@ function eventsNearMe(currentLocation) {
     return p2;
 }
 
-
-
 // function to update the table of events on the webpage
 function updateDomTable() {
     $('#imgDiv').children().remove();
@@ -264,40 +228,37 @@ function updateDomTable() {
     eventArr.forEach(function(ele) {
         $('#tableBody').append('<tr>' +
             '<td>' + ele.eventName + '</td>' +
-            '<td>' + ele.eventAddress + ',' + ele.city+',' + ele.state+',' + ele.zip + '</td>' +
+            '<td>' + ele.eventAddress + ',' + ele.city + ',' + ele.state + ',' + ele.zip + '</td>' +
             '<td>' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '</td>' +
             '<td></td>' +
             '</tr>');
 
+        var image = ele.img;
+        var title = ele.eventName;
+        var url = ele.url;
 
-            var image = ele.img;
-            var title = ele.eventName;
-            var url = ele.url;
+        var eventURL = $('<a class="info+URL"> Click for more details</a>');
+        eventURL.attr('href', url);
 
-            var eventURL = $('<a class="info+URL"> Click for more details</a>');
-            eventURL.attr('href', url);
+        var detail = '<div class="event-description">' +
+            'Event: ' + ele.eventName + "<br>" +
+            'Where: ' + ele.eventAddress + ',' + ele.city + ', ' + ele.zip + '<br>' +
+            'When: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') + '<br>' +
+            '<a href="' + ele.url + '" target="_blank">' + "Click for more Info" + '</a>' +
+            '</div>';
 
-            var detail = '<div class="event-description">' +
-                         'Event: ' + ele.eventName + "<br>" +
-                         'Where: '  + ele.eventAddress +','+ ele.city+', '+ ele.zip + '<br>' +
-                         'When: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') +'<br>'+
-                         '<a href="'+ele.url+'" target="_blank">'+ "Click for more Info"+'</a>'+
-                         '</div>';
+        //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
-            //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
+        var imageDiv = $('<img class=event-near-me-image>');
+        imageDiv.attr('src', image);
 
-            var imageDiv = $('<img class=event-near-me-image>');
-            imageDiv.attr('src', image);
+        var eventDetailsDiv = $('<div class="event-details col m3">');
+        //eventDetailsDiv.append(titleDiv);
+        eventDetailsDiv.append(imageDiv);
+        eventDetailsDiv.append(detail);
+        //eventDetailsDiv.append(eventURL);
 
-            var eventDetailsDiv = $('<div class="event-details col m3">');
-            //eventDetailsDiv.append(titleDiv);
-            eventDetailsDiv.append(imageDiv);
-            eventDetailsDiv.append(detail);
-             //eventDetailsDiv.append(eventURL);
-
-            $('#imgDiv').append(eventDetailsDiv);
-
-
+        $('#imgDiv').append(eventDetailsDiv);
     });
 }
 
@@ -306,9 +267,7 @@ function updateDomTable() {
 // This ia function makes a call to open weather API to fetch weather
 function getWeather(place) {
 
-
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
     // This is our API Key
     queryURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + place + "&units=Imperial" + '&cnt=16' + "&appid=" + '166a433c57516f51dfab1f7edaed8413';
 
@@ -330,9 +289,7 @@ function getTempFromWeatherObj(response) {
             date: ele.dt,
             temp: ele.temp.day
         });
-
     });
-
 }
 
 // This function grabs temp for an event for that eventdate
@@ -356,9 +313,7 @@ function getEventsAndPinn(event, date) {
 
 
     event.preventDefault();
-
-    console.log('event1', event)
-        // store user event info into firebase database
+    // store user event info into firebase database
     storeInFirebase();
 
     // capturing user inputs
@@ -367,8 +322,6 @@ function getEventsAndPinn(event, date) {
     city = $('#city').val();
     category = $('#category').val();
     date = date || $('#date').val();
-
-    console.log("DATE",date);
 
     // making an API call by sending user inputs
     apiParameters.location = '';
@@ -382,27 +335,19 @@ function getEventsAndPinn(event, date) {
     apiParameters.category = category;
     apiParameters.date = date;
 
-
-
     // These are the variables for the promise that we are making
     p0 = getWeather(city + ',' + state + ',usa');
     p1 = getEvents("/events/search", apiParameters);
-
-
     p0.then(getTempFromWeatherObj, function(err) {
         console.log(err);
     });
-
 
     // sequence of promises
     p1.then(pushEventsToArray)
         .then(geocodeEvents, function(err) {
             console.log(err);
         });
-
 }
-
-
 
 // Creating ImageTags dynamically
 function getImages() {
@@ -413,31 +358,27 @@ function getImages() {
         var image = $('<img>');
         image.addClass('random-images col m12 s1');
         image.attr('src', 'assets/images/' + Math.floor(Math.random() * 22) + '.jpg' || '.jpeg');
-
         $('.image-row').append(image);
     }
 }
 
- // store in firebase
+// store in firebase
 function storeInFirebase() {
+    userName = $('#userName').val();
     cityName = $("#city").val();
-    // category = $("#category").val();
-    // state = $("#state").val();
+    category = $("#category").val();
+    state = $("#state").val();
 
-    // console.log("userName2" + userName);
-    // console.log("cityName" + cityName);
-    // console.log("category" + category);
-    // console.log("state" + state);
-    // usersRef = database.ref().child('users/' + userName);
+    console.log("userName2" + userName);
+    console.log("cityName" + cityName);
+    console.log("category" + category);
+    console.log("state" + state);
+    usersRef = database.ref().child('users/' + userName);
 
-    // usersRef.child('locations').push({
-    //     cityName: cityName,
-    //     state: state,
-    //     category: category
-    // });
-
-    database.ref().push({
-        city: $('#city').val().trim()
+    usersRef.child('locations').push({
+        cityName: cityName,
+        state: state,
+        category: category
     });
 
     console.log("push done");
@@ -449,97 +390,73 @@ function storeInFirebase() {
 firebase.initializeApp(config);
 database = firebase.database();
 
-
-
 // this is the main function
 $(document).ready(function() {
-
-
     $('#login-page').openModal({
-      dismissible: false
+        dismissible: false
     });
 
-         // Authentication
+    // Authentication
+    $('#signIn').click(function(event) {
 
-
-    $('#signIn').click(function(event){
         event.preventDefault();
-
-        const email =  $('#userEmail').val().trim();
-        const pwd =  $('#password').val().trim();
+        const email = $('#userEmail').val().trim();
+        const pwd = $('#password').val().trim();
         const auth = firebase.auth();
-        console.log(email,pwd);
-        const pUser = auth.signInWithEmailAndPassword(email,pwd);
-        pUser.then(function(user){
+        console.log(email, pwd);
+        const pUser = auth.signInWithEmailAndPassword(email, pwd);
+        pUser.then(function(user) {
 
-            //uid = user.uid;
-            //console.log("USER",uid);
             $('#login-page').closeModal();
-            database.ref().once('value', function(snapshot) {
-            var cities = snapshot.val();
-            for (var key in cities){
-                console.log(cities[key].city);
-                cityArray.push(cities[key].city);
-            }
-            console.log(cities);
-  // handle read data.
-            });
-            //$(location).attr('href', '#/index.html');
-        },function(err){
-        console.log(err);
+            // database.ref().once('value', function(snapshot) {
+            //     var cities = snapshot.val();
+            //     for (var key in cities) {
+            //         console.log(cities[key].city);
+            //         cityArray.push(cities[key].city);
+            //     }
+            //     console.log(cities);
+            // handle read data.
+            // });
+        }, function(err) {
+            console.log(err);
         });
-
-
-
-
     });
 
-    $('#signUp').click(function(event){
+    $('#signUp').click(function(event) {
         event.preventDefault();
 
-        const email =  $('#userEmail').val().trim();
-        const pwd =  $('#password').val().trim();
+        const email = $('#userEmail').val().trim();
+        const pwd = $('#password').val().trim();
         const auth = firebase.auth();
-        const pUser = auth.createUserWithEmailAndPassword(email,pwd);
-        pUser.then(function(user){
-             //console.log("USER",uid);
+        const pUser = auth.createUserWithEmailAndPassword(email, pwd);
+        pUser.then(function(user) {
             $('#login-page').closeModal();
-            database.ref().once('value', function(snapshot) {
-            var cities = snapshot.val();
-            for (var key in cities){
-                console.log(cities[key].city);
-                cityArray.push(cities[key].city);
-            }
-            console.log(cities);
-  // handle read data.
-            });
-
+            //     database.ref().once('value', function(snapshot) {
+            //         var cities = snapshot.val();
+            //         for (var key in cities) {
+            //             console.log(cities[key].city);
+            //             cityArray.push(cities[key].city);
+            //         }
+            // handle read data.
         });
+        // buttonActions(event);
         pUser.catch(e => console.log(e));
-
-
     });
 
-    $('#signOut').click(function(event){
+
+    // });
+
+    $('#signOut').click(function(event) {
         firebase.auth().signOut();
 
     });
 
-
-
-    firebase.auth().onAuthStateChanged(function(firebaseUser){
-    if(firebaseUser){
-        console.log(firebaseUser);
-
-
-
-        //$(location).attr('href', './city.html');
-    //  firebase.auth().signOut();
-        //$('#signOut').show();
-
-    }else{
-        console.log("User not signed in");
-    }
+    firebase.auth().onAuthStateChanged(function(firebaseUser) {
+        if (firebaseUser) {
+            console.log(firebaseUser);
+        } else {
+            console.log("User not signed in");
+        }
 
     });
 
@@ -552,7 +469,7 @@ $(document).ready(function() {
         console.log(err);
     });
 
-   // geoTest();
+    // geoTest();
 
     // on the click of the submit button which is displayed on the front page, rest of the things are happenings
     $('#submitButton').on('click', getEventsAndPinn);
@@ -562,52 +479,32 @@ $(document).ready(function() {
     $(document).on('click', '.view-switch', function(event) {
         event.preventDefault();
         eventArr = [];
-
         var linkHash = $(this).find('a').attr('href');
-
         // remove hash from front;
         $('#submitButton').trigger('click', linkHash.slice(1, linkHash.length));
 
     });
 
+    $("#userName").change(function() {
+        userName = $("#userName").val();
+        usersRef = database.ref().child('users/' + userName + '/locations');
 
-    // firebase settings
-    //on entering username get the location/city and store them in an array
-    // $("#userName").change(function() {
-    //     userName = $("#userName").val();
-    //     usersRef = database.ref().child('users/' + userName + '/locations');
+        usersRef.once("value", function(snapshot) {
 
-    //     usersRef.once("value", function(snapshot) {
+            var location = snapshot.val();
+            console.log(location);
+            for (var key in location) {
+                //removes duplicate citynames
+                if (cityArray.indexOf(location[key].cityName) === -1) {
+                    cityArray.push(location[key].cityName);
+                    console.log("cityName:" + location[key].cityName);
+                }
 
-    //         var location = snapshot.val();
-    //         console.log(location);
-    //         for (var key in location) {
-    //             //removes duplicate citynames
-    //             if (cityArray.indexOf(location[key].cityName) === -1) {
-    //                 cityArray.push(location[key].cityName);
-    //                 console.log("cityName:" + location[key].cityName);
-    //             }
+            }
+            console.log("cityArray" + cityArray);
 
-    //         }
-    //         console.log("cityArray" + cityArray);
-
-    //     });
-    // });
-
-    $("#city").autocomplete({
-        source: cityArray
+        });
     });
-
-
-    $("#category").autocomplete({
-        source: categoryArray
-    });
-
-    $("#state").autocomplete({
-        source: stateArray
-    });
-
-   // getImages();
 
 
     /* enterWebsite,below is a submit button displayed on the front page. If the user click on submit
@@ -616,7 +513,7 @@ $(document).ready(function() {
 
     $('#loginForm').on('submit', function(event) {
         console.log("inside loginForm");
-        buttonActions(event);
+
     });
 
     $('#enterWebsite').on('click', function() {
@@ -629,16 +526,9 @@ $(document).ready(function() {
         event.preventDefault();
         userName = $('#userName').val().trim();
         if (!userName) {
-        //     $('.main-page').hide();
-        //     $('.user-name-input,.enter-website').attr('placeholder', 'Please enter your Name');
+            //     $('.main-page').hide();
+            //     $('.user-name-input,.enter-website').attr('placeholder', 'Please enter your Name');
         } else {
-
-            // $('.main-page').show();
-            // $('.front-page').hide();
-            // $('#loginForm').hide();
-            // $('#map').hide();
-            // $('#tabDiv').hide();
-            // $('.user-input-form').show();
 
 
             var nameArr = userName.split(" ");
@@ -653,6 +543,3 @@ $(document).ready(function() {
     }
 
 });
-
-
-

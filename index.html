@@ -9,8 +9,8 @@
 		<!-- google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
 		<!-- Import Google Icon Font-->
-    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    	<!-- materialise CSS -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- materialise CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 		<!-- internal stylesheet -->
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -19,9 +19,7 @@
 		<!-- this is a CDN link to jquery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
 	</head>
-
 	<body>
 		<!-- this is the navbar of the website -->
 		<div class="row nav-bar">
@@ -30,164 +28,126 @@
 				<img src="assets/images/ode.png">
 			</div>
 			<div class="col m8">
-
 				<!-- <form id="loginForm" class="col s8 user-name-input">
-					<span class="col m1"></span>
-					<input id="userName" type="text" class="validate col m2 col s4" placeholder="Name">
-					<button id="enterWebsite" class="col m2 col s4" type="submit">Sign In</button>
+						<span class="col m1"></span>
+						<input id="userName" type="text" class="validate col m2 col s4" placeholder="Name">
+						<button id="enterWebsite" class="col m2 col s4" type="submit">Sign In</button>
 				</form> -->
-
-
 				<form class="user-input-form">
-
 					<span class="col m1"></span>
 					<!-- city -->
-
-						<input id="city" type="text" class="validate col m2 col s4" placeholder="city"  maxlength="20" pattern="[a-zA-Z]+" required>
-
-
+					<input id="city" type="text" class="validate col m2 s12" placeholder="city"  maxlength="20" pattern="[a-zA-Z]+" required>
 					<!-- state -->
-
-						<input id="state" type="text"  class="validate col m2 col s4" placeholder="state" required="required">
-
+					<input id="state" type="text"  class="validate col m2 s12" placeholder="state" required="required">
 					<!-- category -->
-
-						<input id="category" type="text" name="category" class=" col m2 col s4" placeholder="category"
+					<input id="category" type="text" name="category" class=" col m2 col s12" placeholder="category"
 					<!-- date -->
-
-
-						<input id="date" class="datepicker col m2 col s4" type="date">
-
-
+					<input id="date" class="datepicker col m3 s12" type="date">
 					<!-- submit Button -->
 					<!-- <span class="col m1">
-						<button id="submitButton">Submit</button>
+							<button id="submitButton">Submit</button>
 					</span> -->
-
 					<span class="iconsizer"><i id="submitButton" class="small material-icons white-text icon-button icon-height-adjuster center type-it-text">search</i></span>
-
-
 				</form>
 			</div>
-
-
 			<div id="userNameDisplay" class="col s2 cursive-font"></div>
 		</div>
-
-<!--
+		<!--
 		Modal Structure -->
-<!--
-		<div id="modal1" class="modal">
-		  <div class="modal-content">
-		    <h4>SignIn Form</h4>
-		    <form class="userInputForm" >
-				<div class="row col m12">
-					<span class="input-field col m2 col s12">
-						<input id="signInEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
-					</span>
-					<span class="input-field col m2 col s12">
-						<input id="signInPassword" type="password" class="validate" placeholder="password">
-					</span>
-
-				</div>
-
-				<div class="modal-footer">
-						<span class="col m1">
-							<button id="signinButton"
-								class="custombuttons modal-action modal-close waves-effect waves-green btn-flat"
-								 type="submit">SignIn</button>
-						</span>
-						<span class="col m1">
-							<button id="signupButton"
-								class="custombuttons modal-action modal-close waves-effect waves-green btn-flat"
-								 type="submit">SignUp</button>
-						</span>
-				</div>
-
-			</form>
-		  </div>
-		</div>
-	 -->
-
-
-  <div id="login-page" class="modal">
-   <div class="modal-content">
-
-      <form class="login-form">
-        <div class="row">
-          <div class="input-field col s12 center">
-            <img src="assets/images/ode.png" alt="" class="circle responsive-img valign profile-image-login">
-           <!--  <p class="center login-form-text">Login to enter</p> -->
-          </div>
-        </div>
-
-       <div class="row margin">
-          <div class="col s2"></div>
-          <div class="input-field col s8">
-
-            <input id="userEmail" type="email">
-            <label for="userEmail">Username</label>
-          </div>
-           <div class="col s2"></div>
-        </div>
-
-        <div class="row margin">
-          <div class="col s2"></div>
-          <div class="input-field col s8">
-
-            <input id="password" type="password">
-            <label for="password">Password</label>
-          </div>
-           <div class="col s2"></div>
-        </div>
-
-        <div class="row">
-          <div class="col s2"></div>
-          <div class="input-field col s4">
-            <a id="signIn" href="index.html" class="btn waves-effect waves-light col s12">SignIn</a>
-          </div>
-
-          <div class="input-field col s4">
-            <a id="signUp" href="index.html" class="btn waves-effect waves-light col s12">SignUp</a>
-          </div>
-           <div class="col s2"></div>
-        </div>
-
-
-      </form>
-    </div>
-
-  </div>
-
-
-		<!-- end modal -->
-
-		<!-- front page container which has images
-		<div class="container front-page ">
-			<div class="row">
-				<div class="eventsNearMe col m12">
-					<div id="frontImgDiv" class="row events-row">
+		<!--
+				<div id="modal1" class="modal">
+					<div class="modal-content">
+						<h4>SignIn Form</h4>
+						<form class="userInputForm" >
+									<div class="row col m12">
+											<span class="input-field col m2 col s12">
+													<input id="signInEmail" type="email"  class="validate" placeholder="EnterYourEmail" required="required">
+											</span>
+											<span class="input-field col m2 col s12">
+													<input id="signInPassword" type="password" class="validate" placeholder="password">
+											</span>
+									</div>
+									<div class="modal-footer">
+												<span class="col m1">
+														<button id="signinButton"
+															class="custombuttons modal-action modal-close waves-effect waves-green btn-flat"
+															type="submit">SignIn</button>
+												</span>
+												<span class="col m1">
+														<button id="signupButton"
+															class="custombuttons modal-action modal-close waves-effect waves-green btn-flat"
+															type="submit">SignUp</button>
+												</span>
+									</div>
+							</form>
 					</div>
 				</div>
+		-->
+		<div id="login-page" class="modal">
+			<div class="modal-content">
+				<form class="login-form">
+					<div class="row">
+						<div class="input-field col s12 center">
+							<img src="assets/images/ode.png" alt="" class="circle responsive-img valign profile-image-login">
+							<!--  <p class="center login-form-text">Login to enter</p> -->
+						</div>
+					</div>
+					<div class="row margin">
+						<div class="col s12"></div>
+						<div class="input-field col s8">
+							<input id="userName" type="text">
+							<label for="userName">Name</label>
+						</div>
+						<div class="col s12"></div>
+					</div>
+					<div class="row margin">
+						<div class="col s12"></div>
+						<div class="input-field col s8">
+							<input id="userEmail" type="email">
+							<label for="userEmail">email</label>
+						</div>
+						<div class="col s12"></div>
+					</div>
+					<div class="row margin">
+						<div class="col s12"></div>
+						<div class="input-field col s8">
+							<input id="password" type="password">
+							<label for="password">Password</label>
+						</div>
+						<div class="col s12"></div>
+					</div>
+					<div class="row">
+						<div class="col s2"></div>
+						<div class="input-field col s4">
+							<a id="signIn" href="index.html" class="btn waves-effect waves-light col s12">SignIn</a>
+						</div>
+						<div class="input-field col s4">
+							<a id="signUp" href="index.html" class="btn waves-effect waves-light col s12">SignUp</a>
+						</div>
+						<div class="col s2"></div>
+					</div>
+				</form>
 			</div>
-
 		</div>
-
+		<!-- end modal -->
+		<!-- front page container which has images
+		<div class="container front-page ">
+				<div class="row">
+						<div class="eventsNearMe col m12">
+								<div id="frontImgDiv" class="row events-row">
+								</div>
+						</div>
+				</div>
+		</div>
 		<!-- after clicking on the signin button user goes to the main page -->
 		<div class="container main-page">
-
-
 			<!-- images from events display area -->
-
 			<div class="row">
 				<div class="events-near-me col m12">
 					<div id="imgDiv" class="row events-row">
 					</div>
 				</div>
 			</div>
-
-
-
 			<div class="row map-row">
 				<div id="tabDiv" class="event-display-tabs">
 					<ul class="tabs event-tabs">
@@ -202,35 +162,25 @@
 					<div id="map" class="col m12">
 					</div>
 				</div>
-
 			</div>
 		</div>
-
-			<!-- this is the table showing events data in a table format-->
-
-				<!-- Table content  -->
-				<table class="col m6 s12">
-					<thead id="tableHeading" class="heading-table divider">
-						<tr>
-							<th data-field="id">Event Name</th>
-							<th data-field="name">Location</th>
-							<th data-field="price">Date/Time</th>
-							<!-- <th data-field="price">Price</th> -->
-						</tr>
-					</thead>
-					<!-- table body -->
-					<tbody id="tableBody" class="body-table">
-					</tbody>
-				</table>
-
-
-
-
+		<!-- this is the table showing events data in a table format-->
+		<!-- Table content  -->
+		<table class="col m6 s12">
+			<thead id="tableHeading" class="heading-table divider">
+				<tr>
+					<th data-field="id">Event Name</th>
+					<th data-field="name">Location</th>
+					<th data-field="price">Date/Time</th>
+					<!-- <th data-field="price">Price</th> -->
+				</tr>
+			</thead>
+			<!-- table body -->
+			<tbody id="tableBody" class="body-table">
+			</tbody>
+		</table>
 		<!-- Reference to Materialize.min javascript sheet. -->
- 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-
-
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 		<!-- LeanModal.js for modal -->
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.leanmodal/1.1/jquery.leanmodal.min.js"></script>
 		<!-- jquery UI -->
@@ -239,16 +189,16 @@
 		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 		<!-- materialise link -->
 		<linfik rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js">
-		<!-- link for making an api call to eventful website -->
-		<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
-		<!-- loading google maps -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
-		async defer></script>
-		<!-- this is a CDN link to firebase -->
-		<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-		<!--CDN for moment.js  -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-		<!-- this is a link to internal JS file -->
-		<script src="assets/javascript/app.js" type="text/javascript"></script>
-	</body>
-</html>
+			<!-- link for making an api call to eventful website -->
+			<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+			<!-- loading google maps -->
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE8fwiCz_eMdxWJ7B9q1uDW6Vqy8n1xGg"
+			async defer></script>
+			<!-- this is a CDN link to firebase -->
+			<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+			<!--CDN for moment.js  -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+			<!-- this is a link to internal JS file -->
+			<script src="assets/javascript/app.js" type="text/javascript"></script>
+		</body>
+	</html>
