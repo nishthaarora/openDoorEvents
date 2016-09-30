@@ -393,13 +393,13 @@ $(document).ready(function() {
             $('#login-page').closeModal();
 
 
-        userName = $('#userName').val().trim();
+            userName = $('#userName').val().trim();
 
-        var nameArr = userName.split(" ");
+            var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
                 $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
                     ele.substring(1) + ' !');
-         })
+            })
 
 
         }, function(err) {
@@ -414,17 +414,25 @@ $(document).ready(function() {
         const pwd = $('#password').val().trim();
         const auth = firebase.auth();
         const pUser = auth.createUserWithEmailAndPassword(email, pwd);
+        var pwdArr = pwd.split('');
+        pwdArr.length >= 6;
+        if (pwdArr.length < 6) {
+            var pwdDiv = $('<div>');
+            pwdDiv.text('Password should be atleast 6 digits');
+            $('.pwd').after(pwdDiv);
+        }
+
         pUser.then(function(user) {
             $('#login-page').closeModal();
 
 
-        userName = $('#userName').val().trim();
+            userName = $('#userName').val().trim();
 
-        var nameArr = userName.split(" ");
+            var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
                 $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
                     ele.substring(1) + ' !');
-         })
+            })
 
         });
         // buttonActions(event);
