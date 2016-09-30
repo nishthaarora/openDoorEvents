@@ -392,6 +392,16 @@ $(document).ready(function() {
 
             $('#login-page').closeModal();
 
+
+        userName = $('#userName').val().trim();
+
+        var nameArr = userName.split(" ");
+            nameArr.forEach(function(ele) {
+                $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
+                    ele.substring(1) + ' !');
+         })
+
+
         }, function(err) {
             console.log(err);
         });
@@ -406,6 +416,15 @@ $(document).ready(function() {
         const pUser = auth.createUserWithEmailAndPassword(email, pwd);
         pUser.then(function(user) {
             $('#login-page').closeModal();
+
+
+        userName = $('#userName').val().trim();
+
+        var nameArr = userName.split(" ");
+            nameArr.forEach(function(ele) {
+                $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
+                    ele.substring(1) + ' !');
+         })
 
         });
         // buttonActions(event);
@@ -468,17 +487,6 @@ $(document).ready(function() {
             }
         });
     });
-
-    // This function will display username on the page
-    $('#signIn').on('click', function() {
-        userName = $('#userName').val().trim();
-
-        var nameArr = userName.split(" ");
-            nameArr.forEach(function(ele) {
-                $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
-                    ele.substring(1) + ' !');
-         })
-    })
 
 
 });
