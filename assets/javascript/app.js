@@ -11,33 +11,35 @@ var database;
 var eventArr = [];
 var eventsArray = [];
 var cityArray = [];
-
+var categoryArray = [];
+var stateArray = [];
 
 // these are used to store promises
-var p1, p2, p0;
+var p1, p2, p0,pUser;
 
 // to store temperature
 var temp, tempForcastArr;
 // parameter object to be passed to eventful API for making an api call
 var apiParameters = {
     app_key: "3sqmmtWF3swnsGxH",
-    page_size: 4,
+    page_size:4,
     sort_order: "popularity"
 
 };
 
 
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyAsq6cXBKkFnimoovY-5ejzKIJ4kfMT6Xk",
-    authDomain: "groupproject3-b7b27.firebaseapp.com",
-    databaseURL: "https://groupproject3-b7b27.firebaseio.com",
-    storageBucket: "groupproject3-b7b27.appspot.com",
-    messagingSenderId: "758842518995"
-};
+  var config = {
+    apiKey: "AIzaSyAjiFcMAppFW9AqRusRp7dOSQSF-vVbYlA",
+    authDomain: "odeusers.firebaseapp.com",
+    databaseURL: "https://odeusers.firebaseio.com",
+    storageBucket: "odeusers.appspot.com",
+    messagingSenderId: "788239866664"
+  };
 
+categoryArray = ['music','family','comedy','concerts','books','business','art','crafts'];
 
-
+stateArray = ['tx','wa','ca','il','ny'];
 // functions
 
 
@@ -175,11 +177,11 @@ function eventsNearMe(currentLocation) {
                     var url = event.url;
 
 
-                var eventURL = $('<a class="info+URL"> Click for more details</a>');
+                var eventURL = $('<a class="info-url"> Click for more details</a>');
                 eventURL.attr('href', url);
 
 
-                 var detail = '<div class="eventDescription">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
+                 var detail = '<div class="event-description">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
                     "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + "<br>"
                     + '<a href="'+url+'" target="_blank">'+ "Click for more Info"+'</a>'+'</div>';
 
@@ -187,16 +189,16 @@ function eventsNearMe(currentLocation) {
 
                 //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
-                var imageDiv = $('<img class=eventNearMeImage>');
+                var imageDiv = $('<img class="event-near-me-image">');
                 imageDiv.attr('src', image);
 
-                var eventDetailsDiv = $('<div class="eventDetails col m3">');
+                var eventDetailsDiv = $('<div class="event-details col m3">');
                 //eventDetailsDiv.append(titleDiv);                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' +event.start_time + '</div>';
                 eventDetailsDiv.append(imageDiv);
                 eventDetailsDiv.append(detail);
                 //eventDetailsDiv.append(eventURL);
 
-                $('#frontImgDiv').append(eventDetailsDiv);
+                $('#imgDiv').append(eventDetailsDiv);
 
             });
 
@@ -243,7 +245,7 @@ function eventsNearMe(currentLocation) {
     updateDomTable();
 
     p2 = initialiseGoogleMap(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 12,
         center: {
             lat: -34.397,
             lng: 150.644
@@ -275,7 +277,7 @@ function updateDomTable() {
             var eventURL = $('<a class="info+URL"> Click for more details</a>');
             eventURL.attr('href', url);
 
-            var detail = '<div class="eventDescription">' +
+            var detail = '<div class="event-description">' +
                          'Event: ' + ele.eventName + "<br>" +
                          'Where: '  + ele.eventAddress +','+ ele.city+', '+ ele.zip + '<br>' +
                          'When: ' + moment(ele.eventDate).format('MM-DD-YYYY, hh:mm a') +'<br>'+
@@ -284,10 +286,10 @@ function updateDomTable() {
 
             //var titleDiv = $('<div>' + 'Name: ' + title + '</div>');
 
-            var imageDiv = $('<img class=eventNearMeImage>');
+            var imageDiv = $('<img class=event-near-me-image>');
             imageDiv.attr('src', image);
 
-            var eventDetailsDiv = $('<div class="eventDetails col m3">');
+            var eventDetailsDiv = $('<div class="event-details col m3">');
             //eventDetailsDiv.append(titleDiv);
             eventDetailsDiv.append(imageDiv);
             eventDetailsDiv.append(detail);
@@ -404,34 +406,38 @@ function getEventsAndPinn(event, date) {
 
 // Creating ImageTags dynamically
 function getImages() {
-    var imageDiv = $('<div class="row imageRow">');
+    var imageDiv = $('<div class="row image-row">');
     $('.frontPage').append(imageDiv);
 
     for (var i = 0; i < 1; i++) {
         var image = $('<img>');
-        image.addClass('randomImages col m12 s1');
+        image.addClass('random-images col m12 s1');
         image.attr('src', 'assets/images/' + Math.floor(Math.random() * 22) + '.jpg' || '.jpeg');
 
-        $('.imageRow').append(image);
+        $('.image-row').append(image);
     }
 }
 
  // store in firebase
 function storeInFirebase() {
     cityName = $("#city").val();
-    category = $("#category").val();
-    state = $("#state").val();
+    // category = $("#category").val();
+    // state = $("#state").val();
 
-    console.log("userName2" + userName);
-    console.log("cityName" + cityName);
-    console.log("category" + category);
-    console.log("state" + state);
-    usersRef = database.ref().child('users/' + userName);
+    // console.log("userName2" + userName);
+    // console.log("cityName" + cityName);
+    // console.log("category" + category);
+    // console.log("state" + state);
+    // usersRef = database.ref().child('users/' + userName);
 
-    usersRef.child('locations').push({
-        cityName: cityName,
-        state: state,
-        category: category
+    // usersRef.child('locations').push({
+    //     cityName: cityName,
+    //     state: state,
+    //     category: category
+    // });
+
+    database.ref().push({
+        city: $('#city').val().trim()  
     });
 
     console.log("push done");
@@ -448,9 +454,94 @@ database = firebase.database();
 // this is the main function
 $(document).ready(function() {
 
-    $('#userName').focus();
-    $('.modal-trigger').leanModal();
+   
+    $('#login-page').openModal({
+      dismissible: false
+    });
 
+         // Authentication
+
+
+    $('#signIn').click(function(event){
+        event.preventDefault();
+
+        const email =  $('#userEmail').val().trim();
+        const pwd =  $('#password').val().trim();
+        const auth = firebase.auth();
+        console.log(email,pwd);
+        const pUser = auth.signInWithEmailAndPassword(email,pwd);
+        pUser.then(function(user){
+            
+            //uid = user.uid;
+            //console.log("USER",uid);
+            $('#login-page').closeModal();
+            database.ref().once('value', function(snapshot) {
+            var cities = snapshot.val();
+            for (var key in cities){
+                console.log(cities[key].city);
+                cityArray.push(cities[key].city);
+            }
+            console.log(cities);
+  // handle read data.
+            });
+            //$(location).attr('href', '#/index.html');
+        },function(err){
+        console.log(err);   
+        });
+
+        
+
+
+    });
+
+    $('#signUp').click(function(event){
+        event.preventDefault();
+
+        const email =  $('#userEmail').val().trim();
+        const pwd =  $('#password').val().trim();
+        const auth = firebase.auth();
+        const pUser = auth.createUserWithEmailAndPassword(email,pwd);
+        pUser.then(function(user){
+             //console.log("USER",uid);
+            $('#login-page').closeModal();
+            database.ref().once('value', function(snapshot) {
+            var cities = snapshot.val();
+            for (var key in cities){
+                console.log(cities[key].city);
+                cityArray.push(cities[key].city);
+            }
+            console.log(cities);
+  // handle read data.
+            });
+
+        });
+        pUser.catch(e => console.log(e));
+
+
+    });
+
+    $('#signOut').click(function(event){
+        firebase.auth().signOut();
+
+    });
+
+
+
+    firebase.auth().onAuthStateChanged(function(firebaseUser){
+    if(firebaseUser){
+        console.log(firebaseUser);
+
+
+
+        //$(location).attr('href', './city.html');
+    //  firebase.auth().signOut();
+        //$('#signOut').show();
+
+    }else{
+        console.log("User not signed in");
+    }
+
+    });
 
     /* this is a promise for the below 2 functions, geoTest which is taking user cordinated and eventsNearMe which is making an API call
     to the eventful api and returning the events near those cordinated
@@ -468,7 +559,7 @@ $(document).ready(function() {
 
 
     // this function is enabling the functionality of the tabs: this week, today etc
-    $(document).on('click', '.viewSwitch', function(event) {
+    $(document).on('click', '.view-switch', function(event) {
         event.preventDefault();
         eventArr = [];
 
@@ -482,32 +573,39 @@ $(document).ready(function() {
 
     // firebase settings
     //on entering username get the location/city and store them in an array
-    $("#userName").change(function() {
-        userName = $("#userName").val();
-        usersRef = database.ref().child('users/' + userName + '/locations');
+    // $("#userName").change(function() {
+    //     userName = $("#userName").val();
+    //     usersRef = database.ref().child('users/' + userName + '/locations');
 
-        usersRef.once("value", function(snapshot) {
+    //     usersRef.once("value", function(snapshot) {
 
-            var location = snapshot.val();
-            console.log(location);
-            for (var key in location) {
-                //removes duplicate citynames
-                if (cityArray.indexOf(location[key].cityName) === -1) {
-                    cityArray.push(location[key].cityName);
-                    console.log("cityName:" + location[key].cityName);
-                }
+    //         var location = snapshot.val();
+    //         console.log(location);
+    //         for (var key in location) {
+    //             //removes duplicate citynames
+    //             if (cityArray.indexOf(location[key].cityName) === -1) {
+    //                 cityArray.push(location[key].cityName);
+    //                 console.log("cityName:" + location[key].cityName);
+    //             }
 
-            }
-            console.log("cityArray" + cityArray);
+    //         }
+    //         console.log("cityArray" + cityArray);
 
-        });
-    });
+    //     });
+    // });
 
     $("#city").autocomplete({
         source: cityArray
     });
 
 
+    $("#category").autocomplete({
+        source: categoryArray
+    });
+
+    $("#state").autocomplete({
+        source: stateArray
+    });
 
    // getImages();
 
@@ -529,21 +627,24 @@ $(document).ready(function() {
     function buttonActions(event) {
 
         event.preventDefault();
-         userName = $('#userName').val().trim();
+        userName = $('#userName').val().trim();
         if (!userName) {
-            $('.mainPage').hide();
-            // $('.userNameInput,.enterWebsite').append('Please enter your Name');
-            $('.userNameInput,.enterWebsite').attr('placeholder', 'Please enter your Name');
+        //     $('.main-page').hide();
+        //     $('.user-name-input,.enter-website').attr('placeholder', 'Please enter your Name');
         } else {
-            $('.mainPage').show();
-            $('.frontPage').hide();
-            $('#map').hide();
-            $('#tabDiv').hide();
+           
+            // $('.main-page').show();
+            // $('.front-page').hide();
+            // $('#loginForm').hide();
+            // $('#map').hide();
+            // $('#tabDiv').hide();
+            // $('.user-input-form').show();
+ 
 
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
-                $('.userNameInput,.enterWebsite').html('Welcome ' + ele.charAt(0).toUpperCase() +
-                    ele.substring(1) + '!');
+                $('#userNameDisplay').html('Welcome  ' + ele.charAt(0).toUpperCase() +
+                    ele.substring(1) + ' !');
 
             });
             $('#city').focus();
@@ -552,4 +653,6 @@ $(document).ready(function() {
     }
 
 });
+
+
 

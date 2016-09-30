@@ -6,14 +6,22 @@ body
     padding: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-color: #66ABBC;
+	/*background-color: #66ABBC;*/
+	background-color: #4dd0e1;
+	border-right:1px solid white;
+	border-left:1px solid white;
+
+
+		/*background-image: linear-gradient(#26a69a , #1de9b6 );*/
 }
 
 
 /*navigation bar*/
 
-.navBar {
-	background-color: #FFF7C0;
+.nav-bar {
+	/*background-color: #FFF7C0;*/
+	background-image: linear-gradient( #e6ee9c, #ffe082 ,#e6ee9c );
+	border-bottom:1px solid white;
 
 }
 
@@ -32,26 +40,36 @@ body
 }
 
 /*id carrying an name input and submit button*/
-.userNameInput.col.s5 {
-	float:right;
-	margin-top:32px;
-	font-weight: bolder;
+.user-name-input {
+	
+	background-image: linear-gradient(#827717,#9e9d24);
+
+	margin: 25px 0px 0px 0px;
+	
+	color:white;
+	
+	border-radius: 35px;
+	border-top:1px solid white;
+	border-left:1px solid white;
+	border-right:1px solid white;
+
+
 }
 
-.eventNearMeImage
+.event-near-me-image
 {
-	border-radius:138px;
+	border-radius:4px;
 	width:150px;
 }
 
-img.eventNearMeImage
+img.event-near-me-image
 {
 	width:150px;
 }
 
 /*SignIn button*/
-#enterWebsite{
-	margin-left: 10px;
+#enterWebSite{
+	margin-top: 10px;
 }
 
 /*end of navbar styling*/
@@ -59,21 +77,34 @@ img.eventNearMeImage
 
 /*front page container design*/
 
-.imageRow {
+.image-row {
 	background-size: cover;
 }
 
+.cursive-font{
+	font-family: 'Dancing Script', cursive;
+	font-size: 25px;
+	font-weight: bold;
+	color:#01579b;
+}
 /*end of front page container design*/
 
 
 
 /*start of main page*/
 
-.userInputForm
+.user-input-form
 {
-	background-color: #111110;
-	opacity: 0.5;
+	background-image: linear-gradient(#827717,#9e9d24);
+
+	margin-top:35px;
+	margin-bottom:0;
 	color:white;
+	border-radius: 35px;
+	border-top:1px solid white;
+	border-left:1px solid white;
+	border-right:1px solid white;
+
 
 }
 
@@ -83,28 +114,26 @@ img.eventNearMeImage
 
 #submitButton
 {
-	margin: 34px 2px 20px 0;
+	margin: 15px 0px 0px 0;
 	background-color: #8bc34a;
 	border-radius: 5px;
 }
 
-#userInputForm{
-	 border-radius: 25px;
-}
 
-img.eventNearMeImage{
+
+img.event-near-me-image{
 	width: 100%;
 	margin:0;
 	padding:0;
 }
 
-.eventDetails.col.m6 {
+.event-details.col.m6 {
 	border: 1px solid #fff7c0;
 	padding:0;
 	
 }
 
-.infoURL{
+.info-url{
 	color:purple;
 }
 
@@ -115,13 +144,13 @@ img.eventNearMeImage{
 
 }
 
-.eventDisplayTabs {
+.event-display-tabs {
     background-color: transperent;
     display:none;
     font-size: 0.8em;
 }
 
-.eventDescription{
+.event-description{
 	padding:0;
 /*	border-left:1px solid red;
 	border-right:1px solid red;
@@ -145,23 +174,32 @@ img.eventNearMeImage{
 }
 
 #submitButton:hover{
-	opacity:0.8;
+	opacity:0.5;
+
+	
+}
+
+#submitButton:active{
+	color:blue;
+	border:1px solid white;
 	
 }
 
 #submitButton{
+	margin-top: 20px,0,0,20px;
 	background: transparent;
+	border:1px solid transparent;
 }
 
-.mainPage {
+.main-page {
+	/*display:none;*/
+}
+
+#map, #tableHeading, #tableBody, .event-display-tabs {
 	display:none;
 }
 
-#map, #tableHeading, #tableBody, .eventDisplayTabs {
-	display:none;
-}
-
- .eventDisplayTabs{
+ .event-display-tabs{
  	position:absolute;
  	top:10px;
  	right:0px;
@@ -179,8 +217,6 @@ img.eventNearMeImage{
 .map-row{
 	top: 20px;
 	right:0px;
-
-
 	position: relative;
 
 }
@@ -191,3 +227,8 @@ table{
 }
 
 
+form>span{
+margin-top: 0;
+}
+
+.modal { width: 40% !important ; max-height: 100% !important } 
