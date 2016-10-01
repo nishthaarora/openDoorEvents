@@ -369,6 +369,16 @@ function storeInFirebase() {
 }
 
 
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
 
 // firbase database initializations
 firebase.initializeApp(config);
@@ -376,28 +386,42 @@ database = firebase.database();
 
 // this is the main function
 $(document).ready(function() {
-    $('#login-page').openModal({
-        dismissible: false
-    });
+
+    // storing cookies to remeber user when page is refreshed
+    function cookieCheck() {
+         var cookieName = readCookie('name');
+        var cookieEmail = readCookie('email');
+
+
+        if (document.cookie.indexOf(cookieName) <= -1) {
+             $('#login-page').openModal({
+             dismissible: false
+             });
+
+
+        } else {
+             $('#login-page').closeModal();
+             $('#userNameDisplay').html('Welcome Again ' + ' !');
+
+        }
+    }
+
+ cookieCheck();
 
     // validate the input to see only alphabets are entered
     // for the elements defined with alphabets class
     $('.alphabets').keypress(function(e) {
-        console.log("inside alphabets");
-        console.log("keycode:"+e.keyCode);
-        // return this.optional(element) || value == value.match(/^[a-zA-Z]+$/);
-        // e.which;
+
         var tempKeyCode = e.keyCode || e.which;
         if ( (tempKeyCode >= 65 && tempKeyCode <= 90) ||
-             (tempKeyCode >= 97 && tempKeyCode <= 122) || 
-             (tempKeyCode == 8) || 
+             (tempKeyCode >= 97 && tempKeyCode <= 122) ||
+             (tempKeyCode == 8) ||
              (tempKeyCode == 9) ) {
             console.log("good match");
             return true;
         } else {
-                console.log("not matched");
             e.preventDefault();
-        
+
         }
 
     });
@@ -416,6 +440,10 @@ $(document).ready(function() {
 
 
             userName = $('#user').val().trim();
+
+             document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "name=" + userName;
+            document.cookie = "email=" + email;
 
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
@@ -480,8 +508,6 @@ $(document).ready(function() {
     p.then(eventsNearMe, function(err) {
         console.log(err);
     });
-
-    // geoTest();
 
     // on the click of the submit button which is displayed on the front page, rest of the things are happenings
     $('#submitButton').on('click', getEventsAndPinn);
