@@ -280,7 +280,7 @@ form > span
         width: 50% !important ;
         margin-top: 0;
     }
-    img
+    .logo
     {
         display: none;
     }
@@ -297,4 +297,15 @@ form > span
     {
         width: 100%;
     }
+
+    img.event-near-me-image {
+    width: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.event-description {
+    height: 126px;
+    margin: 0;
+    padding: 0;
 }
