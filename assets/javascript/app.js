@@ -380,6 +380,28 @@ $(document).ready(function() {
         dismissible: false
     });
 
+    // validate the input to see only alphabets are entered
+    // for the elements defined with alphabets class
+    $('.alphabets').keypress(function(e) {
+        console.log("inside alphabets");
+        console.log("keycode:"+e.keyCode);
+        // return this.optional(element) || value == value.match(/^[a-zA-Z]+$/);
+        // e.which;
+        var tempKeyCode = e.keyCode || e.which;
+        if ( (tempKeyCode >= 65 && tempKeyCode <= 90) ||
+             (tempKeyCode >= 97 && tempKeyCode <= 122) || 
+             (tempKeyCode == 8) || 
+             (tempKeyCode == 9) ) {
+            console.log("good match");
+            return true;
+        } else {
+                console.log("not matched");
+            e.preventDefault();
+        
+        }
+
+    });
+
     // Authentication
     $('#signIn').click(function(event) {
 
@@ -489,6 +511,8 @@ $(document).ready(function() {
             }
         });
     });
+
+    $( "#date" ).datepicker();
 
 
 });
