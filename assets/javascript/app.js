@@ -162,7 +162,7 @@ function eventsNearMe(currentLocation) {
 
                 var imageDiv = $('<img class="event-near-me-image">');
                 imageDiv.attr('src', image);
-                var eventDetailsDiv = $('<div class="event-details col m3">');
+                var eventDetailsDiv = $('<div class="event-details col m3 s12">');
                 eventDetailsDiv.append(imageDiv);
                 eventDetailsDiv.append(detail);
                 $('#imgDiv').append(eventDetailsDiv);

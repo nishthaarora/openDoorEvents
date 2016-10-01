@@ -255,3 +255,46 @@ form > span
     width: 40% !important ;
     max-height: 100% !important;
 }
+
+
+/*responsive design*/
+
+
+/*large devices 992px and above*/
+
+@media(min-width: 992px)
+{
+}
+
+/*medium devices of 768 and above*/
+
+@media(min-width: 601px) and (max-height: 991px)
+{
+}
+
+/*small devices*/
+@media(max-width: 600px)
+{
+    .modal
+    {
+        width: 50% !important ;
+        margin-top: 0;
+    }
+    img
+    {
+        display: none;
+    }
+
+    div#userNameDisplay
+    {
+        display: none;
+    }
+    input#state
+    {
+        width: 50%;
+    }
+    .event-details.col.m3.s12
+    {
+        width: 100%;
+    }
+}
