@@ -372,10 +372,10 @@ function storeInFirebase() {
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -389,35 +389,39 @@ $(document).ready(function() {
 
     // storing cookies to remeber user when page is refreshed
     function cookieCheck() {
-         var cookieName = readCookie('name');
+        var cookieName = readCookie('name');
         var cookieEmail = readCookie('email');
 
 
         if (document.cookie.indexOf(cookieName) <= -1) {
-             $('#login-page').openModal({
-             dismissible: false
-             });
+            $('#login-page').openModal({
+                dismissible: false
+            });
 
 
         } else {
-             $('#login-page').closeModal();
-             $('#userNameDisplay').html('Welcome Again ' + ' !');
+            $('#login-page').closeModal();
+
+            var cookieNameArr = cookieName.split(" ");
+            cookieNameArr.forEach(function(ele) {
+                $('#userNameDisplay').html('Welcome Again ' + ele.charAt(0).toUpperCase() +
+                    ele.substring(1) + ' !');
+            })
 
         }
     }
 
- cookieCheck();
+    cookieCheck();
 
     // validate the input to see only alphabets are entered
     // for the elements defined with alphabets class
     $('.alphabets').keypress(function(e) {
 
         var tempKeyCode = e.keyCode || e.which;
-        if ( (tempKeyCode >= 65 && tempKeyCode <= 90) ||
-             (tempKeyCode >= 97 && tempKeyCode <= 122) ||
-             (tempKeyCode == 8) ||
-             (tempKeyCode == 9) ) {
-            console.log("good match");
+        if ((tempKeyCode >= 65 && tempKeyCode <= 90) ||
+            (tempKeyCode >= 97 && tempKeyCode <= 122) ||
+            (tempKeyCode == 8) ||
+            (tempKeyCode == 9)) {
             return true;
         } else {
             e.preventDefault();
@@ -441,7 +445,7 @@ $(document).ready(function() {
 
             userName = $('#user').val().trim();
 
-             document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
             document.cookie = "name=" + userName;
             document.cookie = "email=" + email;
 
@@ -538,7 +542,7 @@ $(document).ready(function() {
         });
     });
 
-    $( "#date" ).datepicker();
+    $("#date").datepicker();
 
 
 });
