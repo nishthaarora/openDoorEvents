@@ -354,7 +354,7 @@ function getImages() {
 
 // store in firebase
 function storeInFirebase() {
-    userName = $('#userName').val();
+    userName = $('#user').val();
     cityName = $("#city").val();
     category = $("#category").val();
     state = $("#state").val();
@@ -393,7 +393,7 @@ $(document).ready(function() {
             $('#login-page').closeModal();
 
 
-            userName = $('#userName').val().trim();
+            userName = $('#user').val().trim();
 
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
@@ -419,7 +419,7 @@ $(document).ready(function() {
             $('#login-page').closeModal();
 
 
-            userName = $('#userName').val().trim();
+            userName = $('#user').val().trim();
 
             var nameArr = userName.split(" ");
             nameArr.forEach(function(ele) {
@@ -474,8 +474,8 @@ $(document).ready(function() {
 
     });
 
-    $("#userName").change(function() {
-        userName = $("#userName").val();
+    $("#user").change(function() {
+        userName = $("#user").val();
         usersRef = database.ref().child('users/' + userName + '/locations');
 
         usersRef.once("value", function(snapshot) {
