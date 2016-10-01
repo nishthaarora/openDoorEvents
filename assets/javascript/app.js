@@ -164,7 +164,7 @@ function eventsNearMe(currentLocation) {
                 eventURL.attr('href', url);
 
                 var detail = '<div class="event-description">' + 'Venue: ' + event.venue_name + "<br>" + 'Address: ' + event.venue_address +
-                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date & Time: ' + event.start_time + "<br>" + '<a href="' + url + '" target="_blank">' + "Click for more Info" + '</a>' + '</div>';
+                    "<br>" + 'City: ' + event.city_name + "<br>" + 'Date: ' + "10-01-2016"+ "<br>" + '<a href="' + url + '" target="_blank">' + "Click for more Info" + '</a>' + '</div>';
 
                 var imageDiv = $('<img class="event-near-me-image">');
                 imageDiv.attr('src', image);
