@@ -151,7 +151,13 @@ function eventsNearMe(currentLocation) {
 
             events.forEach(function(event) {
 
-                var image = event.image.medium.url;
+                var image;
+                if (event.image === null) {
+                    image = 'https://firebasestorage.googleapis.com/v0/b/firstgroupprojec-1473951653941.appspot.com/o/4146517857_c14533684a_z.jpg?alt=media&token=81522d94-99c8-4aa1-88c6-3c9c8f06ee32';
+                } else {
+                    image = event.image.medium.url;
+                }
+
                 var title = event.title;
                 var url = event.url;
                 var eventURL = $('<a class="info-url"> Click for more details</a>');
